@@ -1,0 +1,2 @@
+class UserStream < ApplicationRecord
+end
