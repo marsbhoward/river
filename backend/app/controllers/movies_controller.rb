@@ -5,12 +5,6 @@ class MoviesController < ApplicationController
   		render json: movies
 	end	
 
-  	def create
-    	movies = Scraper.new.netflix_movies
-  		render json: movies
-  	end
-
-
   	def movies_params
     	params.permit(:movie_id)
   	end
