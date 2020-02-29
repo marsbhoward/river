@@ -548,3 +548,681 @@ Processing by MoviesController#index as HTML
 Completed 200 OK in 1993ms (Views: 0.2ms | ActiveRecord: 0.4ms | Allocations: 24467)
 
 
+Started GET "/streams/7/movies" for ::1 at 2020-02-29 11:37:52 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  Parameters: {"stream_id"=>"7"}
+  [1m[36mStream Load (0.5ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:4:in `index'
+  [1m[36mStream Load (0.1ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."name" = ? LIMIT ?[0m  [["name", "starz"], ["LIMIT", 1]]
+  ↳ app/models/scraper.rb:6:in `get_movies'
+Completed 200 OK in 2810ms (Views: 0.4ms | ActiveRecord: 2.0ms | Allocations: 44416)
+
+
+Started GET "/streams/8/movies" for ::1 at 2020-02-29 11:37:59 -0500
+Processing by MoviesController#index as HTML
+  Parameters: {"stream_id"=>"8"}
+  [1m[36mStream Load (0.2ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:4:in `index'
+  [1m[36mStream Load (0.1ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."name" = ? LIMIT ?[0m  [["name", "cinimax"], ["LIMIT", 1]]
+  ↳ app/models/scraper.rb:6:in `get_movies'
+Completed 200 OK in 2590ms (Views: 0.2ms | ActiveRecord: 0.3ms | Allocations: 24579)
+
+
+Started GET "/streams/9/movies" for ::1 at 2020-02-29 11:38:09 -0500
+Processing by MoviesController#index as HTML
+  Parameters: {"stream_id"=>"9"}
+  [1m[36mStream Load (0.1ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:4:in `index'
+Completed 404 Not Found in 2ms (ActiveRecord: 0.1ms | Allocations: 594)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Stream with 'id'=9):
+  
+app/controllers/movies_controller.rb:4:in `index'
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "movies"[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "movies" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "stream_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE  INDEX "index_movies_on_stream_id" ON "movies" ("stream_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "scrapers"[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE "scrapers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "streams"[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "streams" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "url" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_streams"[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TABLE "user_streams" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_streams_id" ON "user_streams" ("streams_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_user_id" ON "user_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "amovies" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "stream_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_amovies_on_stream_id" ON "amovies" ("stream_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "amovies" ("id","title","stream_id","created_at","updated_at")
+                     SELECT "id","title","stream_id","created_at","updated_at" FROM "movies"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "movies"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "movies" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "stream_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_5c64d8c838"
+FOREIGN KEY ("stream_id")
+  REFERENCES "streams" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_movies_on_stream_id" ON "movies" ("stream_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "movies" ("id","title","stream_id","created_at","updated_at")
+                     SELECT "id","title","stream_id","created_at","updated_at" FROM "amovies"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "amovies"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (1.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "auser_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_user_id" ON "auser_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_streams_id" ON "auser_streams" ("streams_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "auser_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "user_streams"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "user_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "user_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_fe0dc1e064"
+FOREIGN KEY ("streams_id")
+  REFERENCES "streams" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_streams_id" ON "user_streams" ("streams_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_user_id" ON "user_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "user_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "auser_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "auser_streams"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "auser_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_user_id" ON "auser_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_streams_id" ON "auser_streams" ("streams_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "auser_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "user_streams"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "user_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "user_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_fe0dc1e064"
+FOREIGN KEY ("streams_id")
+  REFERENCES "streams" ("id")
+, CONSTRAINT "fk_rails_0199176550"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_streams_id" ON "user_streams" ("streams_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_user_id" ON "user_streams" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "user_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "auser_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "auser_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200224173539)[0m
+  [1m[35m (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200224171636),
+(20200224171922),
+(20200224172438),
+(20200224173122);
+
+[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-02-29 16:38:26.919651"], ["updated_at", "2020-02-29 16:38:26.919651"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "39a460327e82e34108b7a256544c83033a84ee0b"], ["created_at", "2020-02-29 16:38:26.926788"], ["updated_at", "2020-02-29 16:38:26.926788"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "movies"[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "movies" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "stream_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX "index_movies_on_stream_id" ON "movies" ("stream_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "scrapers"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "scrapers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "streams"[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TABLE "streams" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "url" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_streams"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "user_streams" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_streams_id" ON "user_streams" ("streams_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_user_id" ON "user_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "amovies" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "stream_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_amovies_on_stream_id" ON "amovies" ("stream_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "amovies" ("id","title","stream_id","created_at","updated_at")
+                     SELECT "id","title","stream_id","created_at","updated_at" FROM "movies"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "movies"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "movies" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "stream_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_5c64d8c838"
+FOREIGN KEY ("stream_id")
+  REFERENCES "streams" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_movies_on_stream_id" ON "movies" ("stream_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "movies" ("id","title","stream_id","created_at","updated_at")
+                     SELECT "id","title","stream_id","created_at","updated_at" FROM "amovies"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "amovies"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "auser_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_user_id" ON "auser_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_streams_id" ON "auser_streams" ("streams_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "auser_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "user_streams"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "user_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "user_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_fe0dc1e064"
+FOREIGN KEY ("streams_id")
+  REFERENCES "streams" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_streams_id" ON "user_streams" ("streams_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_user_id" ON "user_streams" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "user_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "auser_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "auser_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "auser_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_user_id" ON "auser_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_streams_id" ON "auser_streams" ("streams_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "auser_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "user_streams"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "user_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "user_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_fe0dc1e064"
+FOREIGN KEY ("streams_id")
+  REFERENCES "streams" ("id")
+, CONSTRAINT "fk_rails_0199176550"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_streams_id" ON "user_streams" ("streams_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_user_id" ON "user_streams" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "user_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "auser_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "auser_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200224173539)[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200224171636),
+(20200224171922),
+(20200224172438),
+(20200224173122);
+
+[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-02-29 16:38:27.039104"], ["updated_at", "2020-02-29 16:38:27.039104"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.3ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = ?, "updated_at" = ? WHERE "ar_internal_metadata"."key" = ?[0m  [["value", "test"], ["updated_at", "2020-02-29 16:38:27.046602"], ["key", "environment"]]
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "39a460327e82e34108b7a256544c83033a84ee0b"], ["created_at", "2020-02-29 16:38:27.052989"], ["updated_at", "2020-02-29 16:38:27.052989"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.4ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "netflix"], ["url", "http://collider.com/best-movies-on-netflix-streaming/"], ["created_at", "2020-02-29 16:38:27.079878"], ["updated_at", "2020-02-29 16:38:27.079878"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "hulu"], ["url", "http://collider.com/best-movies-on-hulu-streaming"], ["created_at", "2020-02-29 16:38:27.083784"], ["updated_at", "2020-02-29 16:38:27.083784"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "amazon"], ["url", "https://collider.com/best-movies-on-amazon-prime/"], ["created_at", "2020-02-29 16:38:27.086973"], ["updated_at", "2020-02-29 16:38:27.086973"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "hbo"], ["url", "https://collider.com/best-movies-on-hbo/"], ["created_at", "2020-02-29 16:38:27.089913"], ["updated_at", "2020-02-29 16:38:27.089913"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "disney"], ["url", "https://collider.com/best-movies-on-disney-plus/"], ["created_at", "2020-02-29 16:38:27.093502"], ["updated_at", "2020-02-29 16:38:27.093502"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "showtime"], ["url", "https://collider.com/best-movies-on-showtime/"], ["created_at", "2020-02-29 16:38:27.097624"], ["updated_at", "2020-02-29 16:38:27.097624"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "starz"], ["url", "https://reelgood.com/movies/source/starz?filter-sort=1"], ["created_at", "2020-02-29 16:38:27.101715"], ["updated_at", "2020-02-29 16:38:27.101715"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "cinimax"], ["url", "https://reelgood.com/movies/source/cinemax?filter-sort=1"], ["created_at", "2020-02-29 16:38:27.104915"], ["updated_at", "2020-02-29 16:38:27.104915"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "vudu"], ["url", "https://reelgood.com/movies/source/vudu?filter-sort=1"], ["created_at", "2020-02-29 16:38:27.108000"], ["updated_at", "2020-02-29 16:38:27.108000"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "apple"], ["url", "https://reelgood.com/movies/source/apple_tv_plus?filter-sort=1"], ["created_at", "2020-02-29 16:38:27.111400"], ["updated_at", "2020-02-29 16:38:27.111400"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "epix"], ["url", "https://reelgood.com/movies/source/epix?filter-sort=1"], ["created_at", "2020-02-29 16:38:27.114405"], ["updated_at", "2020-02-29 16:38:27.114405"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "cbs"], ["url", "https://reelgood.com/movies/source/cbs_all_access?filter-sort=1"], ["created_at", "2020-02-29 16:38:27.117809"], ["updated_at", "2020-02-29 16:38:27.117809"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "tbs"], ["url", "https://reelgood.com/movies/source/tbs?filter-sort=1"], ["created_at", "2020-02-29 16:38:27.120946"], ["updated_at", "2020-02-29 16:38:27.120946"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "tnt"], ["url", "https://reelgood.com/movies/source/tnt?filter-sort=1"], ["created_at", "2020-02-29 16:38:27.124244"], ["updated_at", "2020-02-29 16:38:27.124244"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "shudder"], ["url", "https://reelgood.com/movies/source/shudder?filter-sort=1"], ["created_at", "2020-02-29 16:38:27.127907"], ["updated_at", "2020-02-29 16:38:27.127907"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "amc"], ["url", "https://reelgood.com/movies/source/amc?filter-sort=1"], ["created_at", "2020-02-29 16:38:27.131829"], ["updated_at", "2020-02-29 16:38:27.131829"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "fx"], ["url", "https://reelgood.com/movies/source/fx?filter-sort=1"], ["created_at", "2020-02-29 16:38:27.134908"], ["updated_at", "2020-02-29 16:38:27.134908"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "syfy"], ["url", "https://reelgood.com/movies/source/syfy?filter-sort=1"], ["created_at", "2020-02-29 16:38:27.138071"], ["updated_at", "2020-02-29 16:38:27.138071"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "ifc"], ["url", "https://reelgood.com/movies/source/ifc?filter-sort=1"], ["created_at", "2020-02-29 16:38:27.140947"], ["updated_at", "2020-02-29 16:38:27.140947"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/streams/8/movies" for ::1 at 2020-02-29 11:38:38 -0500
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  Parameters: {"stream_id"=>"8"}
+  [1m[36mStream Load (0.1ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:4:in `index'
+  [1m[36mStream Load (0.1ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."name" = ? LIMIT ?[0m  [["name", "cinimax"], ["LIMIT", 1]]
+  ↳ app/models/scraper.rb:6:in `get_movies'
+Completed 200 OK in 2621ms (Views: 0.3ms | ActiveRecord: 1.9ms | Allocations: 43460)
+
+
+Started GET "/streams/9/movies" for ::1 at 2020-02-29 11:38:44 -0500
+Processing by MoviesController#index as HTML
+  Parameters: {"stream_id"=>"9"}
+  [1m[36mStream Load (0.2ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:4:in `index'
+  [1m[36mStream Load (0.2ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."name" = ? LIMIT ?[0m  [["name", "vudu"], ["LIMIT", 1]]
+  ↳ app/models/scraper.rb:6:in `get_movies'
+Completed 200 OK in 2618ms (Views: 0.2ms | ActiveRecord: 0.4ms | Allocations: 19775)
+
+
+Started GET "/streams/10/movies" for ::1 at 2020-02-29 11:39:21 -0500
+Processing by MoviesController#index as HTML
+  Parameters: {"stream_id"=>"10"}
+  [1m[36mStream Load (0.3ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:4:in `index'
+  [1m[36mStream Load (0.2ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."name" = ? LIMIT ?[0m  [["name", "apple"], ["LIMIT", 1]]
+  ↳ app/models/scraper.rb:6:in `get_movies'
+Completed 200 OK in 5714ms (Views: 0.1ms | ActiveRecord: 0.5ms | Allocations: 13044)
+
+
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "movies"[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "movies" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "stream_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX "index_movies_on_stream_id" ON "movies" ("stream_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "scrapers"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "scrapers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "streams"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "streams" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "url" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_streams"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "user_streams" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_streams_id" ON "user_streams" ("streams_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_user_id" ON "user_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "amovies" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "stream_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_amovies_on_stream_id" ON "amovies" ("stream_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "amovies" ("id","title","stream_id","created_at","updated_at")
+                     SELECT "id","title","stream_id","created_at","updated_at" FROM "movies"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "movies"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "movies" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "stream_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_5c64d8c838"
+FOREIGN KEY ("stream_id")
+  REFERENCES "streams" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_movies_on_stream_id" ON "movies" ("stream_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("id","title","stream_id","created_at","updated_at")
+                     SELECT "id","title","stream_id","created_at","updated_at" FROM "amovies"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "amovies"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "auser_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_user_id" ON "auser_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_streams_id" ON "auser_streams" ("streams_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "auser_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "user_streams"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "user_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "user_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_fe0dc1e064"
+FOREIGN KEY ("streams_id")
+  REFERENCES "streams" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_streams_id" ON "user_streams" ("streams_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_user_id" ON "user_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "user_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "auser_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "auser_streams"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "auser_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_user_id" ON "auser_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_streams_id" ON "auser_streams" ("streams_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "auser_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "user_streams"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "user_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "user_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_fe0dc1e064"
+FOREIGN KEY ("streams_id")
+  REFERENCES "streams" ("id")
+, CONSTRAINT "fk_rails_0199176550"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_streams_id" ON "user_streams" ("streams_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_user_id" ON "user_streams" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "user_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "auser_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "auser_streams"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200224173539)[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200224171636),
+(20200224171922),
+(20200224172438),
+(20200224173122);
+
+[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-02-29 16:47:27.952797"], ["updated_at", "2020-02-29 16:47:27.952797"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "39a460327e82e34108b7a256544c83033a84ee0b"], ["created_at", "2020-02-29 16:47:27.958686"], ["updated_at", "2020-02-29 16:47:27.958686"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "movies"[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "movies" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "stream_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX "index_movies_on_stream_id" ON "movies" ("stream_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "scrapers"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "scrapers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "streams"[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "streams" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "url" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_streams"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "user_streams" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_streams_id" ON "user_streams" ("streams_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_user_id" ON "user_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "amovies" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "stream_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_amovies_on_stream_id" ON "amovies" ("stream_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "amovies" ("id","title","stream_id","created_at","updated_at")
+                     SELECT "id","title","stream_id","created_at","updated_at" FROM "movies"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "movies"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "movies" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "stream_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_5c64d8c838"
+FOREIGN KEY ("stream_id")
+  REFERENCES "streams" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_movies_on_stream_id" ON "movies" ("stream_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "movies" ("id","title","stream_id","created_at","updated_at")
+                     SELECT "id","title","stream_id","created_at","updated_at" FROM "amovies"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "amovies"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "auser_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_user_id" ON "auser_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_streams_id" ON "auser_streams" ("streams_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "auser_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "user_streams"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "user_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "user_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_fe0dc1e064"
+FOREIGN KEY ("streams_id")
+  REFERENCES "streams" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_streams_id" ON "user_streams" ("streams_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_user_id" ON "user_streams" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "user_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "auser_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "auser_streams"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "auser_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_user_id" ON "auser_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "tindex_auser_streams_on_streams_id" ON "auser_streams" ("streams_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "auser_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "user_streams"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "user_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "user_streams" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_fe0dc1e064"
+FOREIGN KEY ("streams_id")
+  REFERENCES "streams" ("id")
+, CONSTRAINT "fk_rails_0199176550"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_streams_id" ON "user_streams" ("streams_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_user_id" ON "user_streams" ("user_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "user_streams" ("id","user_id","streams_id","created_at","updated_at")
+                     SELECT "id","user_id","streams_id","created_at","updated_at" FROM "auser_streams"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "auser_streams"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200224173539)[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200224171636),
+(20200224171922),
+(20200224172438),
+(20200224173122);
+
+[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-02-29 16:47:28.046757"], ["updated_at", "2020-02-29 16:47:28.046757"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.2ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = ?, "updated_at" = ? WHERE "ar_internal_metadata"."key" = ?[0m  [["value", "test"], ["updated_at", "2020-02-29 16:47:28.051851"], ["key", "environment"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "39a460327e82e34108b7a256544c83033a84ee0b"], ["created_at", "2020-02-29 16:47:28.056222"], ["updated_at", "2020-02-29 16:47:28.056222"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "netflix"], ["url", "http://collider.com/best-movies-on-netflix-streaming/"], ["created_at", "2020-02-29 16:47:28.078862"], ["updated_at", "2020-02-29 16:47:28.078862"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "hulu"], ["url", "http://collider.com/best-movies-on-hulu-streaming"], ["created_at", "2020-02-29 16:47:28.082636"], ["updated_at", "2020-02-29 16:47:28.082636"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "amazon"], ["url", "https://collider.com/best-movies-on-amazon-prime/"], ["created_at", "2020-02-29 16:47:28.094804"], ["updated_at", "2020-02-29 16:47:28.094804"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "hbo"], ["url", "https://collider.com/best-movies-on-hbo/"], ["created_at", "2020-02-29 16:47:28.098499"], ["updated_at", "2020-02-29 16:47:28.098499"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "disney"], ["url", "https://collider.com/best-movies-on-disney-plus/"], ["created_at", "2020-02-29 16:47:28.101867"], ["updated_at", "2020-02-29 16:47:28.101867"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "showtime"], ["url", "https://collider.com/best-movies-on-showtime/"], ["created_at", "2020-02-29 16:47:28.104921"], ["updated_at", "2020-02-29 16:47:28.104921"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "starz"], ["url", "https://reelgood.com/movies/source/starz?filter-sort=1"], ["created_at", "2020-02-29 16:47:28.107950"], ["updated_at", "2020-02-29 16:47:28.107950"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "cinimax"], ["url", "https://reelgood.com/movies/source/cinemax?filter-sort=1"], ["created_at", "2020-02-29 16:47:28.111093"], ["updated_at", "2020-02-29 16:47:28.111093"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "dc"], ["url", "https://reelgood.com/movies/source/dc_universe?filter-sort=1"], ["created_at", "2020-02-29 16:47:28.114273"], ["updated_at", "2020-02-29 16:47:28.114273"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "apple"], ["url", "https://reelgood.com/movies/source/apple_tv_plus?filter-sort=1"], ["created_at", "2020-02-29 16:47:28.117228"], ["updated_at", "2020-02-29 16:47:28.117228"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "epix"], ["url", "https://reelgood.com/movies/source/epix?filter-sort=1"], ["created_at", "2020-02-29 16:47:28.120217"], ["updated_at", "2020-02-29 16:47:28.120217"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "cbs"], ["url", "https://reelgood.com/movies/source/cbs_all_access?filter-sort=1"], ["created_at", "2020-02-29 16:47:28.123310"], ["updated_at", "2020-02-29 16:47:28.123310"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "tbs"], ["url", "https://reelgood.com/movies/source/tbs?filter-sort=1"], ["created_at", "2020-02-29 16:47:28.126263"], ["updated_at", "2020-02-29 16:47:28.126263"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "tnt"], ["url", "https://reelgood.com/movies/source/tnt?filter-sort=1"], ["created_at", "2020-02-29 16:47:28.129369"], ["updated_at", "2020-02-29 16:47:28.129369"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "shudder"], ["url", "https://reelgood.com/movies/source/shudder?filter-sort=1"], ["created_at", "2020-02-29 16:47:28.132353"], ["updated_at", "2020-02-29 16:47:28.132353"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "amc"], ["url", "https://reelgood.com/movies/source/amc?filter-sort=1"], ["created_at", "2020-02-29 16:47:28.135519"], ["updated_at", "2020-02-29 16:47:28.135519"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "fx"], ["url", "https://reelgood.com/movies/source/fx?filter-sort=1"], ["created_at", "2020-02-29 16:47:28.138611"], ["updated_at", "2020-02-29 16:47:28.138611"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "syfy"], ["url", "https://reelgood.com/movies/source/syfy?filter-sort=1"], ["created_at", "2020-02-29 16:47:28.141426"], ["updated_at", "2020-02-29 16:47:28.141426"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "ifc"], ["url", "https://reelgood.com/movies/source/ifc?filter-sort=1"], ["created_at", "2020-02-29 16:47:28.144356"], ["updated_at", "2020-02-29 16:47:28.144356"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/streams/9/movies" for ::1 at 2020-02-29 11:47:57 -0500
+  [1m[35m (12.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (7.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  Parameters: {"stream_id"=>"9"}
+  [1m[36mStream Load (5.7ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:4:in `index'
+  [1m[36mStream Load (0.3ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."name" = ? LIMIT ?[0m  [["name", "dc"], ["LIMIT", 1]]
+  ↳ app/models/scraper.rb:6:in `get_movies'
+Completed 200 OK in 2465ms (Views: 1.9ms | ActiveRecord: 10.4ms | Allocations: 39225)
+
+
+Started GET "/streams/11/movies" for ::1 at 2020-02-29 11:48:17 -0500
+Processing by MoviesController#index as HTML
+  Parameters: {"stream_id"=>"11"}
+  [1m[36mStream Load (0.5ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:4:in `index'
+  [1m[36mStream Load (1.0ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."name" = ? LIMIT ?[0m  [["name", "epix"], ["LIMIT", 1]]
+  ↳ app/models/scraper.rb:6:in `get_movies'
+Completed 200 OK in 3065ms (Views: 1.6ms | ActiveRecord: 1.5ms | Allocations: 26415)
+
+
+Started GET "/streams/19/movies" for ::1 at 2020-02-29 11:48:31 -0500
+Processing by MoviesController#index as HTML
+  Parameters: {"stream_id"=>"19"}
+  [1m[36mStream Load (4.6ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."id" = ? LIMIT ?[0m  [["id", 19], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:4:in `index'
+  [1m[36mStream Load (0.3ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."name" = ? LIMIT ?[0m  [["name", "ifc"], ["LIMIT", 1]]
+  ↳ app/models/scraper.rb:6:in `get_movies'
+Completed 200 OK in 1798ms (Views: 0.9ms | ActiveRecord: 4.8ms | Allocations: 18971)
+
+
+Started GET "/streams/18/movies" for ::1 at 2020-02-29 11:48:44 -0500
+Processing by MoviesController#index as HTML
+  Parameters: {"stream_id"=>"18"}
+  [1m[36mStream Load (0.8ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."id" = ? LIMIT ?[0m  [["id", 18], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:4:in `index'
+  [1m[36mStream Load (0.3ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."name" = ? LIMIT ?[0m  [["name", "syfy"], ["LIMIT", 1]]
+  ↳ app/models/scraper.rb:6:in `get_movies'
+Completed 200 OK in 2345ms (Views: 1.2ms | ActiveRecord: 1.1ms | Allocations: 21042)
+
+
+Started GET "/streams/1/movies" for ::1 at 2020-02-29 11:49:01 -0500
+Processing by MoviesController#index as HTML
+  Parameters: {"stream_id"=>"1"}
+  [1m[36mStream Load (0.6ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:4:in `index'
+  [1m[36mStream Load (0.2ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."name" = ? LIMIT ?[0m  [["name", "netflix"], ["LIMIT", 1]]
+  ↳ app/models/scraper.rb:6:in `get_movies'
+Completed 200 OK in 490ms (Views: 1.4ms | ActiveRecord: 0.8ms | Allocations: 14171)
+
+
