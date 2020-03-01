@@ -4,7 +4,7 @@ require 'open-uri'
 class Scraper < ApplicationRecord
 	def get_movies(stream)
 		current_stream = Stream.find_by(name:stream.name)
-		movie_collection = [stream.name]
+		movie_collection = []
 		movie_data = []
 
 		if (current_stream.id > 6 )
