@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  #devise_for :users
+  resources :sessions, only: [:create, :destroy]
   resources :scrapers
   resources :user_streams
   resources :streams do
