@@ -45,8 +45,11 @@ class Scraper < ApplicationRecord
 
 			movie_data.each do |movie|
 				movie_title = movie[1] 
-				current_stream.movies.new(title: movie_title)
-				movie_collection.push (movie_title)
+				if movie_title.include? 'more-recommendations'
+				else
+					current_stream.movies.new(title: movie_title)
+					movie_collection.push (movie_title)
+				end
 			end
 			return movie_collection
 		end
