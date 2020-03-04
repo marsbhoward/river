@@ -7,14 +7,14 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from './reducers';
+import StreamsReducer from './reducers/streamsReducer';
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(StreamsReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store} >
     <App />
-  </Provider>, document.getElementById('container')
+  </Provider>, document.getElementById('root')
 )
 
 
