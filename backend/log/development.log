@@ -2404,3 +2404,242 @@ Processing by MoviesController#index as HTML
 Completed 200 OK in 333ms (Views: 0.3ms | ActiveRecord: 1.5ms | Allocations: 23605)
 
 
+Started GET "/" for ::1 at 2020-03-02 17:56:57 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/marshoward/.rvm/gems/ruby-2.6.1/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/marshoward/.rvm/gems/ruby-2.6.1/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 6.9ms | Allocations: 198)
+Completed 200 OK in 12ms (Views: 8.4ms | ActiveRecord: 0.0ms | Allocations: 897)
+
+
+Started GET "/" for ::1 at 2020-03-02 18:11:16 -0500
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/marshoward/.rvm/gems/ruby-2.6.1/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/marshoward/.rvm/gems/ruby-2.6.1/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 2.2ms | Allocations: 8)
+Completed 200 OK in 7ms (Views: 4.7ms | ActiveRecord: 0.0ms | Allocations: 235)
+
+
+Started GET "/streams" for ::1 at 2020-03-02 18:11:19 -0500
+Processing by StreamsController#index as HTML
+  [1m[36mStream Load (0.9ms)[0m  [1m[34mSELECT "streams".* FROM "streams"[0m
+  ↳ app/controllers/streams_controller.rb:4:in `index'
+Completed 200 OK in 28ms (Views: 17.5ms | ActiveRecord: 0.9ms | Allocations: 7164)
+
+
+Started GET "/streams/1/movies" for ::1 at 2020-03-02 18:11:27 -0500
+Processing by MoviesController#index as HTML
+  Parameters: {"stream_id"=>"1"}
+  [1m[36mStream Load (0.3ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:4:in `index'
+  [1m[36mStream Load (0.1ms)[0m  [1m[34mSELECT "streams".* FROM "streams" WHERE "streams"."name" = ? LIMIT ?[0m  [["name", "netflix"], ["LIMIT", 1]]
+  ↳ app/models/scraper.rb:6:in `get_movies'
+Completed 200 OK in 540ms (Views: 0.4ms | ActiveRecord: 0.4ms | Allocations: 18913)
+
+
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20200224171636)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200224171636"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateStreams (20200224171922)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "streams" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "url" varchar)[0m
+  [1m[36mprimary::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200224171922"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateMovies (20200224172438)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "movies" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "stream_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_5c64d8c838"
+FOREIGN KEY ("stream_id")
+  REFERENCES "streams" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_movies_on_stream_id" ON "movies" ("stream_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200224172438"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateUserStreams (20200224173122)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "user_streams" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "streams_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_0199176550"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_fe0dc1e064"
+FOREIGN KEY ("streams_id")
+  REFERENCES "streams" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_user_id" ON "user_streams" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_user_streams_on_streams_id" ON "user_streams" ("streams_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200224173122"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateScrapers (20200224173539)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "scrapers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200224173539"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddDeviseToUsers (20200301172747)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "email" varchar DEFAULT '' NOT NULL[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" varchar DEFAULT '' NOT NULL[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" varchar[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" datetime[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" datetime[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[36mprimary::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200301172747"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-03-02 23:17:12.139871"], ["updated_at", "2020-03-02 23:17:12.139871"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.6ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "netflix"], ["url", "http://collider.com/best-movies-on-netflix-streaming/"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "hulu"], ["url", "http://collider.com/best-movies-on-hulu-streaming"]]
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "amazon"], ["url", "https://collider.com/best-movies-on-amazon-prime/"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "hbo"], ["url", "https://collider.com/best-movies-on-hbo/"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "disney"], ["url", "https://collider.com/best-movies-on-disney-plus/"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "showtime"], ["url", "https://collider.com/best-movies-on-showtime/"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "starz"], ["url", "https://reelgood.com/movies/source/starz?filter-sort=1"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "cinimax"], ["url", "https://reelgood.com/movies/source/cinemax?filter-sort=1"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "dc"], ["url", "https://reelgood.com/movies/source/dc_universe?filter-sort=1"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "apple"], ["url", "https://reelgood.com/movies/source/apple_tv_plus?filter-sort=1"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "epix"], ["url", "https://reelgood.com/movies/source/epix?filter-sort=1"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "cbs"], ["url", "https://reelgood.com/movies/source/cbs_all_access?filter-sort=1"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "tbs"], ["url", "https://reelgood.com/movies/source/tbs?filter-sort=1"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "tnt"], ["url", "https://reelgood.com/movies/source/tnt?filter-sort=1"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "shudder"], ["url", "https://reelgood.com/movies/source/shudder?filter-sort=1"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "amc"], ["url", "https://reelgood.com/movies/source/amc?filter-sort=1"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "fx"], ["url", "https://reelgood.com/movies/source/fx?filter-sort=1"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.3ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "syfy"], ["url", "https://reelgood.com/movies/source/syfy?filter-sort=1"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mStream Create (0.2ms)[0m  [1m[32mINSERT INTO "streams" ("name", "url") VALUES (?, ?)[0m  [["name", "ifc"], ["url", "https://reelgood.com/movies/source/ifc?filter-sort=1"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/streams" for ::1 at 2020-03-02 18:17:42 -0500
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by StreamsController#index as HTML
+  [1m[36mStream Load (0.6ms)[0m  [1m[34mSELECT "streams".* FROM "streams"[0m
+  ↳ app/controllers/streams_controller.rb:4:in `index'
+Completed 200 OK in 10ms (Views: 4.5ms | ActiveRecord: 1.0ms | Allocations: 5485)
+
+
+Started GET "/" for ::1 at 2020-03-02 19:09:06 -0500
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/marshoward/.rvm/gems/ruby-2.6.1/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/marshoward/.rvm/gems/ruby-2.6.1/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 10.4ms | Allocations: 318)
+Completed 200 OK in 24ms (Views: 16.6ms | ActiveRecord: 0.0ms | Allocations: 1602)
+
+
+Started GET "/" for ::1 at 2020-03-02 19:35:13 -0500
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/marshoward/.rvm/gems/ruby-2.6.1/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/marshoward/.rvm/gems/ruby-2.6.1/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 64.8ms | Allocations: 191)
+Completed 200 OK in 70ms (Views: 67.1ms | ActiveRecord: 0.0ms | Allocations: 730)
+
+
+Started GET "/streams" for ::1 at 2020-03-02 19:37:54 -0500
+Processing by StreamsController#index as HTML
+  [1m[36mStream Load (0.6ms)[0m  [1m[34mSELECT "streams".* FROM "streams"[0m
+  ↳ app/controllers/streams_controller.rb:4:in `index'
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.6ms | Allocations: 2163)
+
+
+Started GET "/streams" for ::1 at 2020-03-02 19:37:56 -0500
+Processing by StreamsController#index as HTML
+  [1m[36mStream Load (0.2ms)[0m  [1m[34mSELECT "streams".* FROM "streams"[0m
+  ↳ app/controllers/streams_controller.rb:4:in `index'
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.2ms | Allocations: 2167)
+
+
+Started GET "/streams" for ::1 at 2020-03-02 19:51:30 -0500
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by StreamsController#index as HTML
+  [1m[36mStream Load (0.7ms)[0m  [1m[34mSELECT "streams".* FROM "streams"[0m
+  ↳ app/controllers/streams_controller.rb:4:in `index'
+Completed 200 OK in 4ms (Views: 2.7ms | ActiveRecord: 0.7ms | Allocations: 2171)
+
+
+Started GET "/streams" for ::1 at 2020-03-02 20:14:20 -0500
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by StreamsController#index as */*
+  [1m[36mStream Load (0.7ms)[0m  [1m[34mSELECT "streams".* FROM "streams"[0m
+  ↳ app/controllers/streams_controller.rb:4:in `index'
+Completed 200 OK in 12ms (Views: 8.5ms | ActiveRecord: 0.7ms | Allocations: 2166)
+
+
+Started GET "/streams" for ::1 at 2020-03-02 20:53:07 -0500
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by StreamsController#index as */*
+  [1m[36mStream Load (0.5ms)[0m  [1m[34mSELECT "streams".* FROM "streams"[0m
+  ↳ app/controllers/streams_controller.rb:4:in `index'
+Completed 200 OK in 10ms (Views: 4.6ms | ActiveRecord: 1.0ms | Allocations: 5487)
+
+
+Started GET "/" for ::1 at 2020-03-02 21:06:57 -0500
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/marshoward/.rvm/gems/ruby-2.6.1/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/marshoward/.rvm/gems/ruby-2.6.1/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 13.0ms | Allocations: 318)
+Completed 200 OK in 29ms (Views: 19.3ms | ActiveRecord: 0.0ms | Allocations: 1605)
+
+
+Started GET "/streams" for ::1 at 2020-03-02 21:08:21 -0500
+Processing by StreamsController#index as */*
+  [1m[36mStream Load (1.6ms)[0m  [1m[34mSELECT "streams".* FROM "streams"[0m
+  ↳ app/controllers/streams_controller.rb:4:in `index'
+Completed 200 OK in 8ms (Views: 5.8ms | ActiveRecord: 1.6ms | Allocations: 2166)
+
+

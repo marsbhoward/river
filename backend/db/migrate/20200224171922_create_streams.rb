@@ -4,7 +4,6 @@ class CreateStreams < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :url
 
-      t.timestamps
     end
   end
 end
