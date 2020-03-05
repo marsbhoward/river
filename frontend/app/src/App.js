@@ -4,6 +4,8 @@ import {
   Route
 } from 'react-router-dom';
 import StreamsPage from './containers/StreamsPage';
+import MoviesPage from './containers/MoviesPage';
+
 
 class App extends Component {   
   
@@ -12,7 +14,8 @@ class App extends Component {
       <Router>
         <div>
           <Route exact path="/" render={() => <div>Home</div>} />
-          <Route path='/streams' render={() => <StreamsPage />} />
+          <Route exact path='/streams' render={() => <StreamsPage />} />
+          <Route path='/streams/:id/movies' render={() => <MoviesPage />} />
         </div>
       </Router>
     );

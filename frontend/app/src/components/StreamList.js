@@ -2,6 +2,7 @@ import React from 'react';
 import '../index.css';
 import Stream from './Stream';
 
+
 class StreamList extends React.Component {
 
 
@@ -13,7 +14,7 @@ class StreamList extends React.Component {
     
     return (
       <div className="streams-list">
-        {streamsList}
+          {streamsList}
       </div>
     )
   }

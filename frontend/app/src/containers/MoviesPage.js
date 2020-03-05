@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchStreams } from '../actions/streamActions'
-import StreamList from '../components/StreamList'
+import { fetchMovies } from '../actions/movieActions'
+import MovieList from '../components/MovieList'
 
 
-class StreamsPage extends Component {   
+class MoviesPage extends Component {   
   
   componentDidMount() {
-    this.props.fetchStreams()
+    this.props.fetchMovies()
   }
   
   handleLoading = () => {
     if(this.props.loading) {
-      return <div>Loading Streams...</div>
+      return <div>Loading Movies...</div>
     } else {
-      return <StreamList streamInfo={this.props.streamInfo} currentStream={this.props.currentStream} />
+      return <MovieList movieCard={this.props.movieCard}/>
     }
   }
 
   render() {
     return (
       <div className="App">
-        <h1>Streams</h1>
+        <h1>Movies Page</h1>
         {this.handleLoading()}
       </div>
     );
@@ -38,4 +38,4 @@ const mapDispatchToProps = state => {
   }
 }
 
-export default connect(mapDispatchToProps, { fetchStreams })(StreamsPage)
+export default connect(mapDispatchToProps, { fetchMovies })(MoviesPage)

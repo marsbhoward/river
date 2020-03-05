@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from'../logo.svg';
+import {Link} from 'react-router-dom'
 
 class Stream extends Component {
 
@@ -11,9 +12,9 @@ class Stream extends Component {
 
   render() {
     return (
-        <img onClick={this.handleOnClick} className= "stream" id={this.props.stream.name} alt={this.props.stream.name} src={logo}>
-        </img>
-      
+        <Link to={`/streams/${this.props.stream.name}/movies`}>
+          <img onClick={this.handleOnClick} className= "stream" id={this.props.stream.name} alt={this.props.stream.name} src={logo}></img>
+        </Link>
     );
   }
 
