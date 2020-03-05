@@ -2,18 +2,19 @@ import React from 'react';
 import '../index.css';
 import Movie from './Movie';
 
+
 class MovieList extends React.Component {
 
 
   render() {
-    //console.log(this)      
-    //const streamsList = this.props.streamInfo.map((stream, index) => {
-    //  return <Stream key={index} stream={stream} />
-    //})
+    console.log(this)      
+    const moviesList = this.props.movieCards.map((movie, index) => {
+      return <Movie key={index} movie={movie} />
+    })
     
     return (
-      <div className="movies-list">
-        <h1>Movies</h1>
+      <div className="movie-list">
+          {moviesList}
       </div>
     )
   }

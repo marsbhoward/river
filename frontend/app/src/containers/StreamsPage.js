@@ -14,7 +14,7 @@ class StreamsPage extends Component {
     if(this.props.loading) {
       return <div>Loading Streams...</div>
     } else {
-      return <StreamList streamInfo={this.props.streamInfo} currentStream={this.props.currentStream} />
+      return <StreamList streamInfo={this.props.streamInfo}/>
     }
   }
 
@@ -32,9 +32,8 @@ class StreamsPage extends Component {
 
 const mapDispatchToProps = state => {
   return {
-    streamInfo: state.streams,
-    currentStream: state.currentStream,
-    loading: state.loading
+    streamInfo: state.StreamsReducer.streams,
+    loading: state.StreamsReducer.loading
   }
 }
 

@@ -14,14 +14,14 @@ class MoviesPage extends Component {
     if(this.props.loading) {
       return <div>Loading Movies...</div>
     } else {
-      return <MovieList movieCard={this.props.movieCard}/>
+      return <MovieList movieCards={this.props.movieCards} />
     }
   }
 
   render() {
     return (
       <div className="App">
-        <h1>Movies Page</h1>
+        <h1>Movies</h1>
         {this.handleLoading()}
       </div>
     );
@@ -32,9 +32,8 @@ class MoviesPage extends Component {
 
 const mapDispatchToProps = state => {
   return {
-    streamInfo: state.streams,
-    currentStream: state.currentStream,
-    loading: state.loading
+    movieCards: state.MoviesReducer.movies,
+    loading: state.MoviesReducer.loading
   }
 }
 
