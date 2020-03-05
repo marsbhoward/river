@@ -1,39 +1,22 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchStreams } from './actions/streamActions'
-import StreamList from './components/StreamList'
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom';
+import StreamsPage from './containers/StreamsPage';
 
 class App extends Component {   
   
-  componentDidMount() {
-    console.log(this.props)
-    this.props.fetchStreams()
-  }
-  
-  handleLoading = () => {
-    console.log(this.props.loading)
-    if(this.props.loading) {
-      return <div>Loading...</div>
-    } else {
-      return <StreamList streamInfo={this.props.streamInfo} />
-    }
-  }
-
   render() {
     return (
-      <div className="App">
-        <h1>Streams</h1>
-        {this.handleLoading()}
-      </div>
+      <Router>
+        <div>
+          <Route exact path="/" render={() => <div>Home</div>} />
+          <Route path='/streams' render={() => <StreamsPage />} />
+        </div>
+      </Router>
     );
   }
 }
 
-const mapDispatchToProps = state => {
-  return {
-    streamInfo: state.streams,
-    loading: state.loading
-  }
-}
-
-export default connect(mapDispatchToProps, { fetchStreams })(App)
+export default App;

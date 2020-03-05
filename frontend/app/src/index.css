@@ -16,6 +16,7 @@ code {
 }
 
 .stream {
-  width: 35%;
+  float: left;
+  width: 30%;
 }
 

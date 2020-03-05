@@ -1,17 +1,19 @@
 import React from 'react';
-import logo from'../logo.svg';
 import '../index.css';
+import Stream from './Stream';
 
 class StreamList extends React.Component {
-  listStreams = () => {
-   return this.props.streamInfo.map(stream => <img key={stream.id} className= "stream" src={logo} alt={stream.name} />)
-  }
+
 
   render() {
+    console.log(this)      
+    const streamsList = this.props.streamInfo.map((stream, index) => {
+      return <Stream key={index} stream={stream} />
+    })
+    
     return (
       <div className="streams-list">
-        {this.listStreams()}
-
+        {streamsList}
       </div>
     )
   }
