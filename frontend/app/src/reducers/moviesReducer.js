@@ -12,6 +12,7 @@ const moviesReducer = (state = { movies: [], loading: false }, action) => {
         movies: action.movies,
         loading: false
       }
+      
     default:
       return state;
   }
