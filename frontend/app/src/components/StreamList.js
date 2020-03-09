@@ -3,13 +3,27 @@ import '../index.css';
 import Stream from './Stream';
 
 
-class StreamList extends React.Component {
+
+export class StreamList extends React.Component {
+//binds passed handler to StreamsList handler
+  constructor(props){
+    super(props)
+    this.handler = this.handler.bind(this)
+  }
+
+// recieves id from passed handler
+  handler = id => {
+    this.setState({
+      currentStream: id
+    })
+ //returns the selected Stream id to StreamsPage   
+    this.props.handler(id)
+  }
 
 
-  render() {
-    console.log(this)      
+  render() {    
     const streamsList = this.props.streamInfo.map((stream, index) => {
-      return <Stream key={index} stream={stream} />
+      return <Stream key={index} stream={stream} handler={this.handler} />
     })
     
     return (

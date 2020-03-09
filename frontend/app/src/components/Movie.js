@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import logo from'../logo.svg';
+
 
 class Movie extends Component {
 
   handleOnClick = () => {
      console.log(this.props.movie)
+     console.log(this)
     }
      //this.setstate({stream: this.props.currentStream})
 
@@ -13,7 +14,7 @@ class Movie extends Component {
 
   render() {
     return (
-        <img onClick={this.handleOnClick} className= "movie" id={this.props.movie} alt={this.props.movie.title} src={logo}>
+        <img onClick={this.handleOnClick} className= "movie" id={this.props.movie.Title} alt={this.props.movie.Title} src={this.props.movie.Poster}>
         </img>
       
     );

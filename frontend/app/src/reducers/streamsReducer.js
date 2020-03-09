@@ -4,6 +4,7 @@ const streamsReducer = (state = { streams: [], currentStream: [], loading: false
       return {
         ...state,
         streams: [...state.streams],
+        currentStream: [...state.currentStream],
         loading: true
       }
     case 'ADD_STREAMS':

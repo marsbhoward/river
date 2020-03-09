@@ -2,18 +2,27 @@ import React, { Component } from 'react';
 import logo from'../logo.svg';
 import {Link} from 'react-router-dom'
 
-class Stream extends Component {
+
+export class Stream extends Component {
 
   handleOnClick = () => {
-     console.log(this.props.stream.name)
+    this.setState({
+        currentStream: this.props.stream.id
+    });
+    //returns the selected Stream id to streamsList
+    this.props.handler(this.props.stream.id)
+ 
     }
-     //this.setstate({stream: this.props.currentStream})
+     
 
 
   render() {
     return (
-        <Link to={`/streams/${this.props.stream.name}/movies`}>
-          <img onClick={this.handleOnClick} className= "stream" id={this.props.stream.name} alt={this.props.stream.name} src={logo}></img>
+        <Link to={{
+          pathname: `/streams/${this.props.stream.name}/movies`,
+          state: `hi`
+        }}>
+          <img onClick={this.handleOnClick} className= "stream" id={this.props.stream.id} alt={this.props.stream.name} src={logo}></img>
         </Link>
     );
   }
