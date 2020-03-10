@@ -36,7 +36,6 @@ class StreamsPage extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Streams</h1>
         {this.handleLoading()}
       </div>
     );
