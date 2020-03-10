@@ -5,7 +5,6 @@ import Movie from './Movie';
 
 class MovieList extends React.Component {
   componentDidMount() {
-    console.log(this)
   }
 
   render() {    

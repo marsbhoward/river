@@ -5,6 +5,19 @@ import amazon from'../streams_logos/amazon.png';
 import hbo from'../streams_logos/hbo.png';
 import disney from'../streams_logos/disney.png';
 import showtime from'../streams_logos/showtime.png';
+import starz from'../streams_logos/starz.png'
+import cinimax from'../streams_logos/cinimax.png'
+import dc from'../streams_logos/dc.png'
+import apple from'../streams_logos/apple.png'
+import epix from'../streams_logos/epix.png'
+import cbs from'../streams_logos/cbs.png'
+import tbs from'../streams_logos/tbs.png'
+import tnt from'../streams_logos/tnt.png'
+import shudder from'../streams_logos/shudder.png'
+import amc from'../streams_logos/amc.png'
+import fx from'../streams_logos/fx.png'
+import syfy from'../streams_logos/syfy.png'
+import ifc from'../streams_logos/ifc.png'
 import logo from'../logo.svg'
 import {Link} from 'react-router-dom'
 
@@ -38,12 +51,50 @@ export class Stream extends Component {
         break;         
       case "showtime":
         this.setState({logo: showtime})
-        break;                               
+        break;
+      case "starz":
+        this.setState({logo: starz})
+        break;
+      case "cinimax":
+        this.setState({logo: cinimax})
+        break;
+      case "dc":
+        this.setState({logo: dc})
+        break;
+      case "apple":
+        this.setState({logo: apple})
+        break;
+      case "epix":
+        this.setState({logo: epix})
+        break;         
+      case "cbs":
+        this.setState({logo: cbs})
+        break;
+      case "tbs":
+        this.setState({logo: tbs})
+        break;
+      case "tnt":
+        this.setState({logo: tnt})
+        break;
+      case "shudder":
+        this.setState({logo: shudder})
+        break;
+      case "amc":
+        this.setState({logo: amc})
+        break;
+      case "fx":
+        this.setState({logo: fx})
+        break;         
+      case "syfy":
+        this.setState({logo: syfy})
+        break;
+      case "ifc":
+        this.setState({logo: ifc})
+        break;                                                                                                                      
       default:
         this.setState({logo: logo})
         break;
     }
-    console.log(this)
   } 
 
 
@@ -53,17 +104,18 @@ export class Stream extends Component {
     });
     //returns the selected Stream id to streamsList
     this.props.handler(this.props.stream.id)
-    console.log(this)
     }
      
 
   render() {
     streamSrc = this.state.logo
-    return (
-        <Link to={`/streams/${this.props.stream.name}/movies`}>
-          <img onClick={this.handleOnClick} className= "stream" id={this.props.stream.id} alt={this.props.stream.name} src={streamSrc}></img>
-        </Link>
-    );
+    if (this.props.stream.name){
+      return (
+          <Link to={`/streams/${this.props.stream.name}/movies`}>
+            <img onClick={this.handleOnClick} className= "stream" id={this.props.stream.id} alt={this.props.stream.name} src={streamSrc}></img>
+          </Link>
+      );
+    }
   }
 
 };
