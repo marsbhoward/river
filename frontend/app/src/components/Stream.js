@@ -18,7 +18,7 @@ import amc from'../streams_logos/amc.png'
 import fx from'../streams_logos/fx.png'
 import syfy from'../streams_logos/syfy.png'
 import ifc from'../streams_logos/ifc.png'
-import logo from'../logo.svg'
+import logo from'../logo.png'
 import {Link} from 'react-router-dom'
 
 let streamSrc

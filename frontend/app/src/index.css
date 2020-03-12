@@ -29,6 +29,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.banner{
+  width: 100%;
+  text-align: center;
+  background: #fe2d56;
+}
 
 .app{
   height: 100%;
@@ -66,4 +71,13 @@ code {
   height: 100%;
   overflow: auto;
   grid-template-columns: auto auto auto auto auto auto;
+}
+
+.show_Movie {
+  text-align: center;
+}
+
+.selected_Movie{
+  text-align:  center;
+  width: 15%
 }

@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import StreamsPage from './containers/StreamsPage';
 import MoviesPage from './containers/MoviesPage';
-
+import './index.css';
 
 
 class App extends Component {  
@@ -20,7 +20,6 @@ class App extends Component {
     this.setState({
       currentStream: id
     }, function () {
-      console.log(this.state.currentStream);
     })
     
     
@@ -30,7 +29,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path="/" render={() => <div>Home</div>} />
+          <Route path="/" render={() => <div className="banner"> rIVer</div>} />
           <Route exact path='/streams' render={() => <StreamsPage handler={this.handler} />} />
           <Route exact path='/streams/:id/movies' render={() => <MoviesPage handler= {this.state.currentStream} />} />
         </div>
