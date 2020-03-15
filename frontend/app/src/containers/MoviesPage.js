@@ -6,8 +6,16 @@ import MovieList from '../components/MovieList'
 class MoviesPage extends Component {   
   
   componentDidMount() {
-    this.props.fetchMovies(this.props.handler)
+
+  this.props.fetchMovies(this.props.handler)
+
   }
+//binds passed handler to StreamsPage handler
+  constructor(props){
+    super(props)
+  }
+// recieves id from passed handler
+
   
   handleLoading = () => {
     if(this.props.loading) {
@@ -15,7 +23,7 @@ class MoviesPage extends Component {
     } else {
       return (
       <div>
-      <MovieList movieCards={this.props.movieCards}/>
+      <MovieList movieCards={this.props.movieCards} currentStream={this.currentStream}/>
       </div>
       )
     }
@@ -35,7 +43,6 @@ class MoviesPage extends Component {
 const mapDispatchToProps = state => {
   return {
     movieCards: state.MoviesReducer.movies,
-    currentStream : state.StreamsReducer.currentStream,
     loading: state.MoviesReducer.loading
   }
 }

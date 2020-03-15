@@ -2,19 +2,23 @@ import React from 'react';
 import '../index.css';
 import Movie from './Movie';
 import MovieInfo from './MovieInfo'
+import {withRouter} from 'react-router-dom';
 
 let showMovie
 let moviesList
+let id
 
 class MovieList extends React.Component {
   componentDidMount() {
-  }
+    
+   }
 
 //binds passed handler to StreamsList handler
   constructor(props){
     super(props)
     this.handler = this.handler.bind(this);
     this.state = {clicked: false}
+
   }
 
 // recieves id from passed handler
@@ -22,7 +26,7 @@ class MovieList extends React.Component {
     this.setState({
       currentMovie: movie,
       clicked: true
-    })    
+    })   
   }
 
   render() {
@@ -41,6 +45,7 @@ class MovieList extends React.Component {
       showMovie = this.state.currentMovie
       return(
       <div>
+        <br/>
         <MovieInfo currentMovie={showMovie}/>
         <div className="movie-list">
             {moviesList}
@@ -50,4 +55,4 @@ class MovieList extends React.Component {
   }
 }
 
-export default MovieList;
+export default withRouter(MovieList);

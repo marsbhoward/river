@@ -12,7 +12,6 @@ class StreamsPage extends Component {
 //binds passed handler to StreamsPage handler
   constructor(props){
     super(props)
-
     this.handler = this.handler.bind(this)
   }
 // recieves id from passed handler

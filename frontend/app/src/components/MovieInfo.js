@@ -3,10 +3,10 @@ class MovieInfo extends Component {
   render() {
   	let currentMovie = this.props.currentMovie
   	const ratings = currentMovie.Ratings.map((rating, index) =>(
-  		<li style={{textAlign : 'justify'}} key={index}>| {rating.Source}: {rating.Value} |</li>
+  		<li  key={index}>| {rating.Source}: {rating.Value} |</li>
  	));
  	
-  	console.log(currentMovie.Ratings)
+  	
     return (
     	 <div className = "show_Movie" >
         <img className= "selected_Movie" alt={currentMovie.Title} src={currentMovie.Poster}></img>
@@ -16,9 +16,8 @@ class MovieInfo extends Component {
           <h5> Actors: {currentMovie.Actors} </h5>
           <h5> Director: {currentMovie.Director} </h5>
           <h5> Awards: {currentMovie.Awards} </h5>
-		  <h4> Ratings <br/>
-		  <h5 style={{display: 'inline-flex',margin: 40, listStyle: 'none'}}> {ratings} </h5>
-		  </h4>
+		  <h4> Ratings </h4>
+      <ul style={{display: 'inline-flex',margin: 40, listStyle: 'none'}}> {ratings} </ul>
           <h4> Plot</h4>
           <h5>{currentMovie.Plot} </h5>
           

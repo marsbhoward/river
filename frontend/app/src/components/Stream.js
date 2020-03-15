@@ -111,7 +111,7 @@ export class Stream extends Component {
     streamSrc = this.state.logo
     if (this.props.stream.name){
       return (
-          <Link to={`/streams/${this.props.stream.name}/movies`}>
+          <Link to={`/streams/${this.props.stream.id}/movies`}>
             <img onClick={this.handleOnClick} className= "stream" id={this.props.stream.id} alt={this.props.stream.name} src={streamSrc}></img>
           </Link>
       );
