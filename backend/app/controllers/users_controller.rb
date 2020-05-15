@@ -5,12 +5,12 @@ class UsersController < ApplicationController
   end
 
   def create()
-    user = User.create(username: user_params[:username],email: user_params[:email])
-    render json: player
-  end
-
+    user = User.find_or_create_by(username: user_params[:username],email: user_params[:email])
+    render json: user
+  end 
+  
   private
   	def user_params
     	params.require(:user).permit(:id, :username, :email)
-  	end
+  	end   	
 end

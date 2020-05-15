@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-	has_many :User_streams
+	has_many :user_streams
 end

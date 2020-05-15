@@ -10,6 +10,6 @@ class MoviesController < ApplicationController
   	end
 
    	def stream_params
-    	params.permit(:stream_id,:name,:url)
+    	params.permit(:stream_imd,:name,:url)
   	end  
 end
