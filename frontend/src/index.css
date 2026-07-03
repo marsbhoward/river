@@ -17,7 +17,8 @@ html, body {
     right:0;
     margin: 0;
     padding: 0;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     width: 100%;
 
 
@@ -111,6 +112,50 @@ code {
 
 }
 
+/***************** profile stream toggle *****************/
+.stream-card {
+  position: relative;
+  display: inline-block;
+  margin-top: 45px;
+  margin-bottom: 45px;
+  width: 70%;
+}
+
+.stream-card.editable {
+  cursor: pointer;
+}
+
+.stream-logo {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  transition: opacity 0.35s ease, filter 0.35s ease;
+  opacity: 1;
+  filter: grayscale(0%);
+}
+
+.stream-card.stream-off .stream-logo {
+  opacity: 0.3;
+  filter: grayscale(85%);
+}
+
+.stream-toggle-light {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #555;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.4);
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+
+.stream-card.stream-on .stream-toggle-light {
+  background: #3cff6e;
+  box-shadow: 0 0 10px 3px rgba(60, 255, 110, 0.85), inset 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
 .stream2 {
   margin-top: 45px;
   margin-bottom: 45px;
@@ -164,7 +209,7 @@ code {
 
   top: 0;
   bottom: 0;
-  width: 100%;
+  width: 95%;
 
   grid-template-columns: 30% 30% 30%;
 

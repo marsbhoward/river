@@ -29,30 +29,8 @@ class ProfilePage extends Component {
     })
   }
 
-  handleSwitch = (dom,stream) => {
-    switch (stream.selected) {
-      case true:
-        dom.style.borderStyle = 'outset';
-        dom.style.background = "lightgray";
-
-        dom.className =  "stream false"
-        stream.selected = false; 
-        break;
-      default:
-        dom.style.borderStyle = 'inset'
-        dom.style.background = "white";
-        
-        dom.className =  "stream true"        
-        stream.selected = true; 
-        break;
-    }
-  }
-
   handleLists = (stream) => {
-    //can use stream.selected
-    let streamDom = document.getElementById(stream.stream_id)
-
-    this.handleSwitch(streamDom,stream)
+    stream.selected = !stream.selected;
 
     if(selectList.indexOf(stream) === -1){
       selectList.push(stream)
@@ -60,43 +38,21 @@ class ProfilePage extends Component {
     else {
       let index = selectList.indexOf(stream);
       selectList.splice(index,1);
-      console.log(selectList)
-    }            
+    }
+
+    this.forceUpdate()
   }
 
-
   handleClick = () => {
-    let selectedStreams = document.getElementsByClassName("true");
-    let unSelectedStreams = document.getElementsByClassName("false");
-
-    for (let i = 0, len = selectedStreams.length; i < len; i++) {
-      selectedStreams[i].style.borderStyle = 'inset'
-    }
-
-    for (let i = 0, len = unSelectedStreams.length; i < len; i++) {
-      unSelectedStreams[i].style.borderStyle = 'outset';
-      unSelectedStreams[i].style.background = "lightgray"; 
-    }
-
     this.setState({
       streamEdit: true
-    })            
-
-  } 
+    })
+  }
 
   handleDone = () => {
-    let streams = document.getElementsByClassName("stream")
-    
-    for (let i = 0, len = streams.length; i < len; i++) {
-      streams[i].style.borderStyle = 'none';
-      streams[i].style.background = "white"; 
-    }
     this.setState({
       streamEdit: false
-    }) 
-
-    //can implement after a second list is made
-    // one for selected, one for unselected
+    })
 
     //add method that edits backend here
     selectList.forEach( stream =>{
