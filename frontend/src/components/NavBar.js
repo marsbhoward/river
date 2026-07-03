@@ -6,21 +6,18 @@ const NavBar = withRouter(({ history }) => {
   const { isAuthenticated, logout } = useAuth0();
 
   return (
-  	<div className="NavBar">
-	<div className="banner">
-	    <span className="homeButton" onClick={() => { history.push('/') }}>  
-	      RIVER
-	    </span> 	
-	</div>
+    <nav className="nav-bar">
+      <span className="nav-brand" onClick={() => { history.push('/') }}>
+        RIVER
+      </span>
 
-    <div className="footer">
-      {isAuthenticated && <span className="profileButton" onClick={() => { history.push('/profile') }}>Profile</span>}
-      {isAuthenticated && <span className="streamsButton" onClick={() => { history.push('/userstreams') }}>Streams</span>}
-      {isAuthenticated && <span className="logoutButton" onClick={() => logout()}>Log Out</span>}    
-           
-    </div>
-    </div>
+      <div className="nav-links">
+        {isAuthenticated && <span className="nav-link" onClick={() => { history.push('/profile') }}>Profile</span>}
+        {isAuthenticated && <span className="nav-link" onClick={() => { history.push('/userstreams') }}>Streams</span>}
+        {isAuthenticated && <span className="nav-link nav-link-logout" onClick={() => logout()}>Log Out</span>}
+      </div>
+    </nav>
   );
-	});
+});
 
 export default NavBar;

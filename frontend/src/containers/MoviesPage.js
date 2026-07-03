@@ -13,20 +13,16 @@ class MoviesPage extends Component {
   
   handleLoading = () => {
     if(this.props.loading) {
-      return <div>Loading Movies...</div>
+      return <div className="state-message">Loading movies...</div>
     } else {
-      return (
-      <div>
-      <MovieList movieCards={this.props.movieCards} currentStream={this.currentStream}/>
-      </div>
-      )
+      return <MovieList movieCards={this.props.movieCards}/>
     }
   }
 
   render() {
     return (
       <div className="App">
-        <div className="banner-2">{this.props.streamName.toUpperCase()}</div>
+        <h2 className="page-title">{this.props.streamName.toUpperCase()}</h2>
         {this.handleLoading()}
       </div>
     );

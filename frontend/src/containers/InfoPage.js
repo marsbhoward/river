@@ -25,25 +25,18 @@ class InfoPage extends Component {
   }
 
   handleLoading = () => {
-    if(this.props.loading) 
+    if(this.props.loading)
     {
-      return <div>Loading Movies...</div>
-    } 
+      return <div className="state-message">Loading movie...</div>
+    }
     else {
-      return (
-      	<div>
-      		<MovieInfo currentMovie={this.props.currentMovie} trailer={this.props.trailer} handler={this.handler}/>
-      	</div>
-      )
+      return <MovieInfo currentMovie={this.props.currentMovie} trailer={this.props.trailer} handler={this.handler}/>
     }
   }
 
   render() {
     return (
-    <div className= "Info">
-    	<div className="banner-3">{this.props.currentMovie.Title.toUpperCase()}</div>
-    	{this.handleLoading()}
-	</div>
+    	this.handleLoading()
  	);
   }
 }

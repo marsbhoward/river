@@ -27,7 +27,7 @@ class UserStreamsPage extends Component {
 
   handleLoading = (id) => {
     if(this.props.loading) {
-      return <div>Loading Streams...</div>
+      return <div className="state-message">Loading streams...</div>
     } else {
       let selectedStreams = []
       this.props.userStreams.forEach ( stream =>{
@@ -35,7 +35,7 @@ class UserStreamsPage extends Component {
 	  		selectedStreams.push(stream)
 	  	}
 
-      })  
+      })
       return <Profile userID={id} userStreams={selectedStreams} handleLists={this.handleLists} handler={this.handler} streamLinks={true}/>
     }
   }

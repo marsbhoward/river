@@ -28,7 +28,7 @@ export class StreamList extends React.Component {
     })
     
     return (
-      <div className="streams-list">
+      <div className="card-grid">
           {streamsList}
       </div>
     )

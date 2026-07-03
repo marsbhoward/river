@@ -14,10 +14,6 @@ function HomePage(props) {
   const { loading, user } = useAuth0();
   const history = useHistory();
 
-  let stlyes = {
-    backgroundImage: "url('https://raw.githubusercontent.com/marsbhoward/river-frontend/master/src/streams_logos/streamsBackground.png')",
-  }
-
   function handleClick() {
     history.push("/streams");
   }
@@ -36,44 +32,34 @@ function HomePage(props) {
   }, [isAuthenticated]);
 
   if (loading) {
-    return <div className = "home">Loading...</div>;
+    return <div className="hero state-message">Loading...</div>;
   }
 
- 
-    return (
-    <div>
-        <div className = "home" style={stlyes}>
-        {!isAuthenticated && (
-          <div className = "home-col"> 
+  return (
+    <div className="hero">
+      {!isAuthenticated && (
+        <div className="hero-content">
+          <h1>Find Your Streams</h1>
+          <p>
+            River is the pathway to all of your streaming platforms.
+            Create an account and you will be able to browse your selected providers'
+            movie catalogs, or you can click the streams button to view all available platforms.
+            <br/><br/>Select a movie and you can get the trailer, ratings, and more!
+          </p>
+          <div className="home-buttons">
+            <button className="btn btn-primary" onClick={() => loginWithPopup({})}>Log in</button>
+            <button className="btn btn-secondary" onClick={handleClick}>Streams</button>
           </div>
-           )}
-           {!isAuthenticated && (
-          <div className = "home-col-2"> 
-            <h1>Find Your Streams</h1>
-            <p> 
-              River is the pathway to all of your streaming platforms.
-              create an account and you will be able to browse your selected providers 
-              movie catalogs, or you can click the streams button to view all available platforms. 
-              <br/><br/>Select a movie and you can get the trailer, ratings, and more! 
-            </p>
-            <div className="home-buttons">
-              <button className="btn btn-primary" onClick={() => loginWithPopup({})}>Log in</button>
-              <button className="btn btn-secondary" onClick={handleClick}>Streams</button>
-            </div>
-          </div>
-          
-        )}    
-      </div>
-      <div>
-         {isAuthenticated && (
-            <div className="greeting">
-              <h2> Hi {user.name} </h2>
-              <h4> Please wait to be redirected </h4>
-            </div>
-        )}
-      </div>
+        </div>
+      )}
+      {isAuthenticated && (
+        <div className="hero-greeting">
+          <h2>Hi {user.name}</h2>
+          <h4>Please wait to be redirected</h4>
+        </div>
+      )}
     </div>
-    );
+  );
   }
 
   function getUserStreams(userID){

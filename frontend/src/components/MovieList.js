@@ -4,53 +4,41 @@ import Movie from './Movie';
 import InfoPage from '../containers/InfoPage'
 import {withRouter} from 'react-router-dom';
 
-let showMovie
-let moviesList
-
-
 class MovieList extends React.Component {
-  componentDidMount() {
-    
-   }
 
-//binds passed handler to StreamsList handler
   constructor(props){
     super(props)
-    this.handler = this.handler.bind(this);
-    this.state = {clicked: false}
-
+    this.state = {clicked: false, currentMovie: null}
   }
 
-// recieves id from passed handler
-  handler = (movie, clicked) => {
+  handler = (movie) => {
     this.setState({
       currentMovie: movie,
       clicked: true
-    })   
+    })
+  }
+
+  handleBack = () => {
+    this.setState({clicked: false, currentMovie: null})
   }
 
   render() {
-    if (this.state.clicked !== true) {   
-       moviesList = this.props.movieCards.map((movie, index) => {
-        return <Movie key={index} movie={movie} handler={this.handler}/>
-      })
-      
+    if (this.state.clicked) {
       return (
-        <div className="movie-list">
-            {moviesList}
+        <div>
+          <button className="btn btn-secondary back-button" onClick={this.handleBack}>&larr; Back to browsing</button>
+          <InfoPage currentMovie={this.state.currentMovie}/>
         </div>
       )
     }
-    else
-      showMovie = this.state.currentMovie
-      //moviesList to <MovieInfo currentMovie={this.props.currentMovie} trailer={this.props.trailer} handler={this.handler}/>
-      return(
-      <div>
-        <br/>
-        <InfoPage currentMovie={showMovie}/>
-        <div className="movie-list">
-            {moviesList}
-        </div>
+
+    const moviesList = this.props.movieCards.map((movie, index) => (
+      <Movie key={index} movie={movie} handler={this.handler}/>
+    ))
+
+    return (
+      <div className="movie-grid">
+          {moviesList}
       </div>
     )
   }

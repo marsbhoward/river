@@ -7,7 +7,6 @@ class StreamsPage extends Component {
   
   componentDidMount() {
     this.props.fetchStreams()
-    console.log(this)
   }
 //binds passed handler to StreamsPage handler
   constructor(props){
@@ -26,9 +25,9 @@ class StreamsPage extends Component {
   
   handleLoading = () => {
     if(this.props.loading) {
-      return <div>Loading Streams...</div>
+      return <div className="state-message">Loading streams...</div>
     } else {
-      
+
       return <StreamList streamInfo={this.props.streamInfo} currentStream={this.props.currentStream} handler={this.handler}/>
     }
   }
@@ -36,6 +35,7 @@ class StreamsPage extends Component {
   render() {
     return (
       <div className="App">
+        <h2 className="page-title">Browse Streams</h2>
         {this.handleLoading()}
       </div>
     );

@@ -35,7 +35,7 @@ export class Profile extends Component {
     return (
       <div>
         <h3 className="streams-list-title">Your Active Streams</h3>
-        <div className="streams-list-2">
+        <div className="card-grid">
             {streamsList}
         </div>
       </div>

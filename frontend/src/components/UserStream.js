@@ -43,15 +43,15 @@ export class UserStream extends Component {
 
     if (this.props.streamLinks === true) {
       return (
-        <Link to={`/streams/${streamName}/movies`}>
-          <img onClick={this.handleOnClick} className="stream" id={streamId.stream_id} alt={streamName} src={streamLogo}></img>
+        <Link className="stream-tile" to={`/streams/${streamName}/movies`}>
+          <img onClick={this.handleOnClick} className="stream-tile-logo" id={streamId.stream_id} alt={streamName} src={streamLogo}></img>
         </Link>
       );
     }
 
     const isSelected = this.props.stream.selected === true;
     const editable = this.props.editClicked === true;
-    const cardClass = `stream-card ${isSelected ? 'stream-on' : 'stream-off'}${editable ? ' editable' : ''}`;
+    const cardClass = `stream-tile ${isSelected ? 'stream-on' : 'stream-off'}${editable ? ' editable' : ''}`;
 
     return (
       <div
@@ -59,7 +59,7 @@ export class UserStream extends Component {
         id={streamId.stream_id}
         onClick={editable ? () => this.props.handleLists(streamId) : undefined}
       >
-        <img className="stream-logo" alt={streamName} src={streamLogo}></img>
+        <img className="stream-tile-logo" alt={streamName} src={streamLogo}></img>
         <span className="stream-toggle-light"></span>
       </div>
     );

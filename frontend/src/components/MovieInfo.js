@@ -2,42 +2,50 @@ import React, { Component } from 'react';
 
 class MovieInfo extends Component {
 
-  componentDidMount() {
-  }
-
   render() {
-  	let currentMovie = this.props.currentMovie
-    let videoId = this.props.trailer
-    let fullsrc = 'https://www.youtube.com/embed/' + videoId
-    let errorMsg
-  	const ratings = currentMovie.Ratings.map((rating, index) =>(
-  		<li  key={index}>» {rating.Source}: {rating.Value} «</li>  
- 	  ));    
-    
- 	  if (videoId === "kJQP7kiw5Fk"){
-      errorMsg = "due to an issue with this sites connection to youtube the trailer can not be viewed at this time" 
-    }
+    const currentMovie = this.props.currentMovie
+    const videoId = this.props.trailer
+    const fullsrc = 'https://www.youtube.com/embed/' + videoId
+    const trailerUnavailable = videoId === "kJQP7kiw5Fk"
+
+    const ratings = currentMovie.Ratings.map((rating, index) => (
+      <li key={index}>{rating.Source}: {rating.Value}</li>
+    ));
+
     return (
-    	<div className = "show_Movie" >
-        <img className= "selected_Movie" alt={currentMovie.Title} src={currentMovie.Poster}></img>
-          <h4> Rated: {currentMovie.Rated}</h4>   
-          <h4> Year: {currentMovie.Year}</h4> 
-          <h4> Genre: {currentMovie.Genre} </h4>
-          <h5> Actors: {currentMovie.Actors} </h5>
-          <h5> Director: {currentMovie.Director} </h5>
-          <h5> Awards: {currentMovie.Awards} </h5>
-		    <h4> Ratings </h4>
-        <ul style={{display: 'inline',margin: 40, listStyle: 'none'}}> {ratings} </ul>
-          <h4> Plot</h4>
-          <h5>{currentMovie.Plot} </h5>
-        <iframe title= "youtube" className="player" id= {videoId}  
-          src={fullsrc}
-          frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
-        </iframe>
-        <p>{errorMsg}</p>        
+      <div className="movie-detail">
+        <h2 className="page-title">{currentMovie.Title}</h2>
+        <div className="movie-detail-layout">
+          <img className="movie-detail-poster" alt={currentMovie.Title} src={currentMovie.Poster} />
+          <div className="movie-detail-meta">
+            <h4>Rated</h4>
+            <p>{currentMovie.Rated}</p>
+            <h4>Year</h4>
+            <p>{currentMovie.Year}</p>
+            <h4>Genre</h4>
+            <p>{currentMovie.Genre}</p>
+            <h4>Actors</h4>
+            <p>{currentMovie.Actors}</p>
+            <h4>Director</h4>
+            <p>{currentMovie.Director}</p>
+            <h4>Awards</h4>
+            <p>{currentMovie.Awards}</p>
+            <h4>Ratings</h4>
+            <ul className="movie-ratings-list">{ratings}</ul>
+            <h4>Plot</h4>
+            <p>{currentMovie.Plot}</p>
+          </div>
+        </div>
+        {trailerUnavailable ? (
+          <p className="movie-trailer-error">Due to an issue with this site's connection to YouTube, the trailer can't be viewed at this time.</p>
+        ) : (
+          <iframe title="youtube" className="movie-trailer" id={videoId}
+            src={fullsrc}
+            frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
+          </iframe>
+        )}
       </div>
     )
   }
 }
 export default MovieInfo;
-

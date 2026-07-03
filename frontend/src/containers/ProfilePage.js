@@ -66,7 +66,7 @@ class ProfilePage extends Component {
 
   handleLoading = (id) => {
     if(this.props.loading) {
-      return <div>Loading Streams...</div>
+      return <div className="state-message">Loading streams...</div>
     } else {
       return <Profile userID={id} userStreams={this.props.userStreams} handleLists={this.handleLists} editClicked={this.state.streamEdit}/>
     }
@@ -82,18 +82,20 @@ class ProfilePage extends Component {
     const { loading, user } = this.context;
 
     if (loading || !user) {
-      return <div>Loading...</div>;
+      return <div className="profile state-message">Loading...</div>;
     }
 
     return (
-      <div className= "profile">
-        <img src={user.picture} alt="Profile" />
-        <h2>Hi, {user.name}</h2>
-        <p>email: {user.email}</p>
-        {this.state.streamEdit
-          ? <button className="btn btn-primary" onClick={this.handleDone}>Done</button>
-          : <button className="btn btn-outline-dark" onClick={this.handleClick}>Edit Streams</button>
-        }
+      <div className="profile">
+        <div className="profile-header">
+          <img src={user.picture} alt="Profile" />
+          <h2>Hi, {user.name}</h2>
+          <p>{user.email}</p>
+          {this.state.streamEdit
+            ? <button className="btn btn-primary" onClick={this.handleDone}>Done</button>
+            : <button className="btn btn-secondary" onClick={this.handleClick}>Edit Streams</button>
+          }
+        </div>
         {this.handleLoading(this.props.userId)}
         <button className="scroll-to-top-button" onClick={this.scrollToTop} aria-label="Return to top">&#8593;</button>
       </div>
