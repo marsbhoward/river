@@ -2,8 +2,8 @@ class MoviesController < ApplicationController
 
 	def index
 		movies = Scraper.new.get_movies(Stream.find(params[:stream_id]))
-  		render json: movies
-	end	
+  		render json: movies.map(&:title)
+	end
 
   	def movies_params
     	params.permit(:movie_id)

@@ -5,32 +5,39 @@ require 'json'
 
 class Scraper < ApplicationRecord
 	TMDB_BASE_URL = 'https://api.themoviedb.org/3'
+	TOP_N = 20
 
+	# Gathers movie titles from every source configured on the stream (Collider
+	# listicle scrape, TMDB discover API, or both), weighting a title by how
+	# many sources agreed it belongs to this stream, and persists the top 20.
 	def get_movies(stream)
-		if stream.provider == 'tmdb'
-			scrape_tmdb(stream)
-		else
-			scrape_collider(stream)
-		end
+		titles = []
+		titles.concat(scrape_collider(stream)) if stream.url.present?
+		titles.concat(scrape_tmdb(stream)) if stream.tmdb_provider_name.present?
+
+		persist_top_movies(stream, weigh_titles(titles))
 	end
 
 	private
 
-	# Collider "best movies on X" listicles render each entry as
-	# <h2 id="lsquo-title-rsquo-year">&lsquo;Title&rsquo; (Year)</h2>
+	# Collider "best movies on X" listicles render each entry as an <h2> title
+	# immediately followed by an <h3 id="rotten-tomatoes-..."> ratings line.
+	# The <h2>'s own id slug is unreliable (Collider encodes apostrophes
+	# differently across articles - "lsquo-...-rsquo-" on some, "39-...-39-"
+	# on others), so we anchor on the more consistent ratings <h3> instead.
 	def scrape_collider(stream)
-		movie_collection = []
 		doc = Nokogiri::HTML(URI.open(stream.url, "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"))
 
-		doc.css('h2[id^="lsquo-"]').each do |heading|
-			title = clean_collider_title(heading.text)
-			next if title.empty?
+		doc.css('h3[id^="rotten-tomatoes-"]').map do |ratings_heading|
+			title_heading = ratings_heading.previous_element
+			next unless title_heading&.name == 'h2'
 
-			stream.movies.new(title: title)
-			movie_collection.push(title)
-		end
-
-		movie_collection
+			title = clean_collider_title(title_heading.text)
+			title unless title.empty?
+		end.compact
+	rescue StandardError => e
+		Rails.logger.error("Scraper#scrape_collider failed for stream #{stream.id} (#{stream.url}): #{e.class}: #{e.message}")
+		[]
 	end
 
 	def clean_collider_title(raw_text)
@@ -41,13 +48,12 @@ class Scraper < ApplicationRecord
 	end
 
 	def scrape_tmdb(stream)
-		api_key = ENV['TMDB_API_KEY']
+		api_key = Rails.application.credentials.tmdb_api_key
 		return [] if api_key.nil? || api_key.empty?
 
 		provider_id = tmdb_provider_id(stream.tmdb_provider_name, api_key)
 		return [] unless provider_id
 
-		movie_collection = []
 		uri = URI("#{TMDB_BASE_URL}/discover/movie")
 		uri.query = URI.encode_www_form(
 			api_key: api_key,
@@ -57,19 +63,13 @@ class Scraper < ApplicationRecord
 		)
 
 		results = JSON.parse(Net::HTTP.get(uri))['results'] || []
-
-		results.each do |movie|
-			title = movie['title']
-			next if title.nil? || title.empty?
-
-			stream.movies.new(title: title)
-			movie_collection.push(title)
-		end
-
-		movie_collection
+		results.map { |movie| movie['title'] unless movie['title'].to_s.empty? }.compact
+	rescue StandardError => e
+		Rails.logger.error("Scraper#scrape_tmdb failed for stream #{stream.id} (#{stream.tmdb_provider_name}): #{e.class}: #{e.message}")
+		[]
 	end
 
-	# Looks up TMDB's numeric provider_id by display name (e.g. "Starz", "Paramount Plus")
+	# Looks up TMDB's numeric provider_id by display name (e.g. "Starz", "Paramount Plus Essential")
 	# instead of hardcoding ids, since TMDB/JustWatch provider ids aren't documented and can change.
 	def tmdb_provider_id(provider_name, api_key)
 		return nil if provider_name.nil? || provider_name.empty?
@@ -80,5 +80,37 @@ class Scraper < ApplicationRecord
 
 		match = providers.find { |p| p['provider_name'].to_s.casecmp(provider_name).zero? }
 		match && match['provider_id']
+	end
+
+	# Tallies titles by a normalized key so the same movie scraped from
+	# different sources (which may format the title differently, e.g. Collider
+	# strips apostrophes while TMDB doesn't) is recognized as one entry with
+	# its weight incremented, rather than two separate entries.
+	def weigh_titles(titles)
+		tally = {}
+
+		titles.each do |title|
+			key = normalize_title(title)
+			next if key.empty?
+
+			tally[key] ||= { title: title, weight: 0 }
+			tally[key][:title] = title
+			tally[key][:weight] += 1
+		end
+
+		tally.values
+	end
+
+	def normalize_title(title)
+		title.downcase.gsub(/[^a-z0-9 ]/, '').strip.gsub(/\s+/, ' ')
+	end
+
+	def persist_top_movies(stream, weighted_titles)
+		stream.movies.destroy_all
+
+		weighted_titles
+			.sort_by { |entry| -entry[:weight] }
+			.first(TOP_N)
+			.map { |entry| stream.movies.create!(title: entry[:title], weight: entry[:weight]) }
 	end
 end

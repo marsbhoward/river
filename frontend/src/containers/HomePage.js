@@ -5,9 +5,8 @@ import { useHistory } from "react-router-dom";
   const streamsList = [
   {id: 1,name:"netflix"},{id: 2,name:"hulu"},{id: 3,name:"amazon"},
   {id: 4,name:"hbo"},{id: 5,name:"disney"},{id: 6,name:"apple"},
-  {id: 7,name:"showtime"},{id: 8,name:"starz"},{id: 9,name:"cinimax"},
-  {id: 10,name:"dc"},{id: 11,name:"epix"},{id: 12,name:"cbs"},
-  {id: 13,name:"shudder"},{id: 14,name:"amc"}
+  {id: 7,name:"starz"},{id: 8,name:"dc"},{id: 9,name:"epix"},
+  {id: 10,name:"cbs"},{id: 11,name:"shudder"},{id: 12,name:"amc"}
   ]
 
 function HomePage(props) {  
