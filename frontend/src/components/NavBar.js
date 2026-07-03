@@ -14,7 +14,7 @@ const NavBar = withRouter(({ history }) => {
       <div className="nav-links">
         {isAuthenticated && <span className="nav-link" onClick={() => { history.push('/profile') }}>Profile</span>}
         {isAuthenticated && <span className="nav-link" onClick={() => { history.push('/userstreams') }}>Streams</span>}
-        {isAuthenticated && <span className="nav-link nav-link-logout" onClick={() => logout()}>Log Out</span>}
+        {isAuthenticated && <span className="nav-link nav-link-logout" onClick={() => logout({ returnTo: 'https://river-wheat.vercel.app/' })}>Log Out</span>}
       </div>
     </nav>
   );

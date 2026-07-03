@@ -31,7 +31,10 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--color-bg);
+  /* Black liquid glass as the base of the whole app, instead of a flat
+     fill - anywhere this peeks through (page edges, a rounded corner on
+     hover, etc) reads as glass rather than a mismatched solid patch. */
+  background: linear-gradient(160deg, #1c1c24 0%, #0e0e13 55%, var(--color-bg) 100%);
   color: var(--color-text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -45,6 +48,16 @@ html, body {
   overflow-y: auto;
   overflow-x: hidden;
   width: 100%;
+}
+
+/* Glass sheen for the body gradient above - fixed so it doesn't scroll
+   with content, pointer-events off so it never blocks clicks. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 30%, transparent 60%);
+  pointer-events: none;
 }
 
 code {
@@ -139,29 +152,78 @@ code {
 
 /***************** hero (home page) *****************/
 .hero {
+  position: relative;
   margin-top: var(--nav-height);
   min-height: calc(100vh - var(--nav-height));
-  display: flex;
+  overflow: hidden;
 }
 
+/* Full-bleed background behind the whole hero (not just the left half), so
+   that when the panel's corner rounds on hover it reveals the photo rather
+   than a mismatched patch of flat page background. */
 .hero-image {
-  flex: 1;
+  position: absolute;
+  inset: 0;
   background-image: url('https://raw.githubusercontent.com/marsbhoward/river-frontend/master/src/streams_logos/streamsBackground.png');
   background-size: cover;
   background-position: center;
 }
 
+/* Jelly panel: glossy black gel rather than a flat rectangle - a bold
+   specular highlight standing in for wet/glossy reflection, a deep body
+   gradient for volume. Stays a clean straight-edged rectangle, contained
+   to its own half, until moused over - the squish is the interaction. */
 .hero-panel {
-  flex: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 40px 24px 80px;
-  background: var(--color-bg);
+  padding: 40px 48px 80px;
+  border-radius: 0;
+  background:
+    radial-gradient(60% 40% at 32% 14%, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.05) 45%, transparent 70%),
+    linear-gradient(160deg, #1e1e26 0%, #0e0e13 55%, var(--color-bg) 100%);
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.35),
+    inset 0 -36px 60px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-radius 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hero-panel:hover {
+  border-radius: 80px 0 0 80px;
+  transform: scale(1.015);
+}
+
+/* Soft glossy streak - a second, sharper highlight for the "wet gel" look */
+.hero-panel::before {
+  content: '';
+  position: absolute;
+  top: 6%;
+  left: 12%;
+  width: 46%;
+  height: 26%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 45%, transparent 75%);
+  filter: blur(18px);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: jelly-breathe 6s ease-in-out infinite;
+}
+
+@keyframes jelly-breathe {
+  0%, 100% { opacity: 0.85; transform: translateY(0) scale(1); }
+  50%      { opacity: 1;    transform: translateY(6px) scale(1.04); }
 }
 
 .hero-content {
+  position: relative;
+  z-index: 1;
   max-width: 480px;
 }
 
@@ -182,6 +244,11 @@ code {
   margin: 0 auto;
 }
 
+.hero-greeting {
+  position: relative;
+  z-index: 1;
+}
+
 .hero-greeting h2 {
   font-family: var(--font-display);
   font-size: 32px;
@@ -197,10 +264,18 @@ code {
 }
 
 /* Below this width the image half would crush the text panel, so drop it
-   and let the black panel take the full width instead. */
+   and let the jelly panel take the full width. */
 @media only screen and (max-width: 760px) {
   .hero-image {
     display: none;
+  }
+
+  .hero-panel {
+    width: 100%;
+  }
+
+  .hero-panel:hover {
+    border-radius: 0;
   }
 }
 
@@ -214,18 +289,33 @@ code {
   padding: 0 24px;
 }
 
+/* Nearly-clear white liquid glass, same family as .profile-header but much
+   lighter/more transparent - meant to barely tint whatever's behind it. */
 .stream-tile {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   aspect-ratio: 16 / 9;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
   padding: 18px;
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  border-radius: var(--radius);
+
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.03) 55%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  backdrop-filter: blur(18px) saturate(1.6) brightness(1.05);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6) brightness(1.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-top-color: rgba(255, 255, 255, 0.3);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 6px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background 0.2s ease, border-radius 0.3s ease;
 }
 
 a.stream-tile,
@@ -235,9 +325,22 @@ a.stream-tile,
 
 a.stream-tile:hover,
 .stream-tile.editable:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-card);
-  background: var(--color-surface-2);
+  transform: translateY(-4px) scale(1.04);
+  border-radius: 22px;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.05) 55%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+  box-shadow:
+    var(--shadow-card),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.4);
+}
+
+a.stream-tile:active,
+.stream-tile.editable:active {
+  transform: scale(0.96);
 }
 
 .stream-tile-logo {
@@ -253,7 +356,12 @@ a.stream-tile:hover,
 }
 
 .stream-tile.stream-off {
-  background: var(--color-surface);
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.01) 55%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
 }
 
 .stream-toggle-light {
@@ -278,16 +386,34 @@ a.stream-tile:hover,
   min-height: 100%;
   padding-top: calc(var(--nav-height) + 32px);
   padding-bottom: 48px;
-  background: var(--color-bg);
+  background: transparent;
   color: var(--color-text);
 }
 
+/* White squishy jelly card - same family as .hero-panel (gradient body for
+   volume, layered soft shadows for a puffy inflated look) but light-toned. */
 .profile-header {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  margin-bottom: 32px;
+  max-width: 420px;
+  margin: 0 auto 32px;
+  padding: 32px 28px;
+  border-radius: 32px;
+
+  background: radial-gradient(120% 100% at 30% 0%, #ffffff 0%, #e9e9ee 65%, #dcdce2 100%);
+  box-shadow:
+    inset 0 3px 6px rgba(255, 255, 255, 0.9),
+    inset 0 -20px 40px rgba(0, 0, 0, 0.06),
+    0 12px 32px rgba(0, 0, 0, 0.35);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.profile-header:hover {
+  transform: scale(1.01);
 }
 
 .profile-header img {
@@ -303,13 +429,13 @@ a.stream-tile:hover,
   font-family: var(--font-display);
   font-size: 24px;
   margin: 0;
-  color: var(--color-text);
+  color: #111;
 }
 
 .profile-header p {
   font-family: var(--font-body);
   font-size: 14px;
-  color: var(--color-text-muted);
+  color: #555;
   margin: 0 0 12px;
 }
 
@@ -321,27 +447,6 @@ a.stream-tile:hover,
   font-size: 20px;
   color: var(--color-text);
   text-align: center;
-}
-
-.scroll-to-top-button {
-  display: block;
-  margin: 40px auto 0;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: none;
-  background: var(--color-accent);
-  color: white;
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-  box-shadow: var(--shadow-accent);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.scroll-to-top-button:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-accent-hover);
 }
 
 /***************** movie grid + detail *****************/
@@ -362,12 +467,16 @@ a.stream-tile:hover,
   cursor: pointer;
   background: var(--color-surface);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
 }
 
 .movie-tile:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: var(--shadow-card);
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: var(--shadow-card), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+.movie-tile:active {
+  transform: scale(0.97);
 }
 
 .movie-tile img {
@@ -475,22 +584,26 @@ a.stream-tile:hover,
   border-radius: 30px;
   cursor: pointer;
   border: 2px solid transparent;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 
 .btn:active {
-  transform: translateY(1px);
+  transform: scale(0.94);
 }
 
 .btn-primary {
   color: white;
-  background: var(--color-accent);
-  box-shadow: var(--shadow-accent);
+  background:
+    radial-gradient(60% 60% at 30% 20%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.05) 55%, transparent 75%),
+    var(--color-accent);
+  box-shadow: var(--shadow-accent), inset 0 1px 1px rgba(255, 255, 255, 0.25);
 }
 
 .btn-primary:hover {
-  background: var(--color-accent-hover);
-  box-shadow: var(--shadow-accent-hover);
+  background:
+    radial-gradient(60% 60% at 30% 20%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.06) 55%, transparent 75%),
+    var(--color-accent-hover);
+  box-shadow: var(--shadow-accent-hover), inset 0 1px 1px rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
 
@@ -501,6 +614,20 @@ a.stream-tile:hover,
 }
 
 .btn-secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+/* Same shape as .btn-secondary but for light backgrounds (e.g. the white
+   squishy .profile-header) */
+.btn-outline-dark {
+  color: #111;
+  background: transparent;
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+.btn-outline-dark:hover {
   border-color: var(--color-accent);
   color: var(--color-accent);
   transform: translateY(-2px);

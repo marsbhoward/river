@@ -25,7 +25,7 @@ function HomePage(props) {
         return getUserStreams(user.id);
       }).then(() => {
         props.userID(user.id);
-        history.push('/profile');
+        history.push('/streams');
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

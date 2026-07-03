@@ -72,12 +72,6 @@ class ProfilePage extends Component {
     }
   }
 
-  scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.body.scrollTo({ top: 0, behavior: 'smooth' });
-    document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
   render() {
     const { loading, user } = this.context;
 
@@ -93,11 +87,10 @@ class ProfilePage extends Component {
           <p>{user.email}</p>
           {this.state.streamEdit
             ? <button className="btn btn-primary" onClick={this.handleDone}>Done</button>
-            : <button className="btn btn-secondary" onClick={this.handleClick}>Edit Streams</button>
+            : <button className="btn btn-outline-dark" onClick={this.handleClick}>Edit Streams</button>
           }
         </div>
         {this.handleLoading(this.props.userId)}
-        <button className="scroll-to-top-button" onClick={this.scrollToTop} aria-label="Return to top">&#8593;</button>
       </div>
     );
   }
