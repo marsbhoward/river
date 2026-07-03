@@ -26,7 +26,8 @@ function HomePage(props) {
     if (isAuthenticated && user) {
       adapter.createUser(user.email, user.name).then(res => {
         user.id = res.id;
-        getUserStreams(user.id);
+        return getUserStreams(user.id);
+      }).then(() => {
         props.userID(user.id);
         history.push('/profile');
       });
@@ -76,10 +77,9 @@ function HomePage(props) {
   }
 
   function getUserStreams(userID){
-    streamsList.forEach(stream =>{ 
-      adapter.createUserStream(userID,stream.id).then(res=> {
-      })
-    })  
+    return Promise.all(
+      streamsList.map(stream => adapter.createUserStream(userID, stream.id))
+    );
   }
 
   const adapter = {

@@ -133,7 +133,12 @@ code {
 }
 
 .profile {
-  margin-top: 45px;
+  min-height: 100%;
+  margin-top: 0;
+  padding-top: 45px;
+  background: white;
+  color: #111;
+  box-sizing: border-box;
 }
 
 .streams-list {
@@ -205,6 +210,7 @@ code {
   right: 0;
   text-align: center;
   position: fixed;
+  color: white;
 }
 
 /***************** mobile screen homepage *****************/
