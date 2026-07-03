@@ -4,6 +4,7 @@ import {
   Route
 } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import PrivateRoute from './components/PrivateRoute';
 import ProfilePage from './containers/ProfilePage';
 import StreamsPage from './containers/StreamsPage';
 import UserStreamsPage from './containers/UserStreamsPage';
@@ -47,9 +48,9 @@ class App extends Component {
         <div className = "page">
           <Route path="/" render={() => <NavBar/> } />
           <Route exact path="/" render={() => <HomePage userID={this.UserID}/>} />
-          <Route exact path="/profile" render={() => <ProfilePage userId={localStorage.currentUserID}/>} />
+          <PrivateRoute exact path="/profile" render={() => <ProfilePage userId={localStorage.currentUserID}/>} />
           <Route exact path='/streams' render={() => <StreamsPage handler={this.handler} />}  />
-          <Route exact path='/userstreams' render={() => <UserStreamsPage handler={this.handler} userId={localStorage.currentUserID}/>}  />
+          <PrivateRoute exact path='/userstreams' render={() => <UserStreamsPage handler={this.handler} userId={localStorage.currentUserID}/>}  />
           <Route exact path='/streams/:id/movies' render={() => <MoviesPage handler= {this.state.currentStream} streamName= {this.state.currentStreamName}/>} />
         </div>
       </Router>
