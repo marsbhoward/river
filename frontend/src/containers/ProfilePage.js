@@ -152,7 +152,7 @@ class ProfilePage extends Component {
 
   const adapter = {
     editStream: (id,selected,user_id,stream_id) => {
-      return fetch(`https://cors-anywhere-dd.herokuapp.com/https://river-api.herokuapp.com/users/${user_id}/user_streams/${id}`, {
+      return fetch(`http://localhost:3001/users/${user_id}/user_streams/${id}`, {
         method: 'PATCH',
         body: JSON.stringify({id,selected,user_id,stream_id}),
         headers: { "Content-Type": "application/json" },

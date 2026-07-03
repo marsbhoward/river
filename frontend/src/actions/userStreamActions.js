@@ -1,8 +1,7 @@
-const PROXY = "https://cors-anywhere-dd.herokuapp.com/";
-const userStreamsAPI = 'https://river-api.herokuapp.com/users/'
+const userStreamsAPI = 'http://localhost:3001/users/'
 
 export const fetchUserStreams = (userID) => {
-	const streamURL = `${PROXY}${userStreamsAPI}${userID}/user_streams`
+	const streamURL = `${userStreamsAPI}${userID}/user_streams`
 	return (dispatch) => {
 		dispatch({ type: 'LOADING_STREAMS'})
 		fetch(streamURL).then(response => {

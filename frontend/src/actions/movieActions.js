@@ -1,6 +1,5 @@
-const PROXY = "https://cors-anywhere-dd.herokuapp.com/";
-const streamsAPI = 'https://river-api.herokuapp.com/streams'
-const URL = PROXY + streamsAPI
+const streamsAPI = 'http://localhost:3001/streams'
+const URL = streamsAPI
 
 
 //	fetch(`http://www.omdbapi.com/?t=${movie}+&apikey=6b46131b`).then(response => {

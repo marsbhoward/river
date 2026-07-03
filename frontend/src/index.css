@@ -3,12 +3,13 @@
 
 html, body {
   margin: 0;
+  background: black;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif,  'Satisfy', cursive;;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-    
+
     position: fixed;
     top:0;
     bottom:0;
@@ -218,7 +219,7 @@ code {
     bottom: 0;
     top: 0;
     background-size: 50% 75%;
-    margin-top: 20px;
+    margin-top: 29px;
     text-align: center;
     display: grid;
     grid-template-columns: 50% 50%;
@@ -254,7 +255,7 @@ code {
     right:0;
     background-size: 360px 230px;
     position: absolute;
-    margin-top: 50px;
+    margin-top: 29px;
     text-align: center;
     display: grid;
     grid-template-columns: 50% 50%;
@@ -279,6 +280,55 @@ code {
     width: 40%;
   }
 
+}
+
+/***************** home page cta buttons *****************/
+.home-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 14px 36px;
+  font-size: 16px;
+  font-family: 'Didact Gothic', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 30px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  color: white;
+  background: #fe2d56;
+  box-shadow: 0 4px 14px rgba(254, 45, 86, 0.4);
+}
+
+.btn-primary:hover {
+  background: #ff4569;
+  box-shadow: 0 6px 20px rgba(254, 45, 86, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  color: white;
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-secondary:hover {
+  border-color: #fe2d56;
+  color: #fe2d56;
+  transform: translateY(-2px);
 }
 
 /***************** footer buttons *****************/
