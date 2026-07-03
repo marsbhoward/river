@@ -6,16 +6,20 @@ require 'json'
 class Scraper < ApplicationRecord
 	TMDB_BASE_URL = 'https://api.themoviedb.org/3'
 	TOP_N = 20
+	REFRESH_INTERVAL = 30.days
 
 	# Gathers movie titles from every source configured on the stream (Collider
 	# listicle scrape, TMDB discover API, or both), weighting a title by how
-	# many sources agreed it belongs to this stream, and persists the top 20.
+	# many sources agreed it belongs to this stream, and refreshes the top 20.
+	# Intended to be called from a scheduled job (see lib/tasks/movies.rake),
+	# not on-demand per request - see MoviesController#index, which just reads
+	# whatever refresh_movies last persisted.
 	def get_movies(stream)
 		titles = []
 		titles.concat(scrape_collider(stream)) if stream.url.present?
 		titles.concat(scrape_tmdb(stream)) if stream.tmdb_provider_name.present?
 
-		persist_top_movies(stream, weigh_titles(titles))
+		refresh_movies(stream, weigh_titles(titles))
 	end
 
 	private
@@ -105,12 +109,30 @@ class Scraper < ApplicationRecord
 		title.downcase.gsub(/[^a-z0-9 ]/, '').strip.gsub(/\s+/, ' ')
 	end
 
-	def persist_top_movies(stream, weighted_titles)
-		stream.movies.destroy_all
+	# Upserts this run's top-20 by weight first (so a movie already tracked
+	# gets its refresh_date bumped instead of being torn down and recreated),
+	# and only afterwards deletes movies that weren't refreshed within
+	# REFRESH_INTERVAL - i.e. a movie survives a scrape that happens not to
+	# rank it in the top 20 that particular run, and is only actually removed
+	# once it's been absent long enough to be considered really gone.
+	def refresh_movies(stream, weighted_titles)
+		now = Time.current
+		top_entries = weighted_titles.sort_by { |entry| -entry[:weight] }.first(TOP_N)
+		existing_by_key = stream.movies.index_by { |movie| normalize_title(movie.title) }
 
-		weighted_titles
-			.sort_by { |entry| -entry[:weight] }
-			.first(TOP_N)
-			.map { |entry| stream.movies.create!(title: entry[:title], weight: entry[:weight]) }
+		top_entries.each do |entry|
+			key = normalize_title(entry[:title])
+			movie = existing_by_key[key]
+
+			if movie
+				movie.update!(title: entry[:title], weight: entry[:weight], refresh_date: now)
+			else
+				stream.movies.create!(title: entry[:title], weight: entry[:weight], refresh_date: now)
+			end
+		end
+
+		stream.movies.where('refresh_date < ?', REFRESH_INTERVAL.ago).destroy_all
+
+		stream.movies.order(weight: :desc).limit(TOP_N)
 	end
 end
