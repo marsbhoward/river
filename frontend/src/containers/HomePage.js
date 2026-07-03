@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAuth0 } from "../react-auth0-spa";
 import { useHistory } from "react-router-dom";
 
   const streamsList = [
   {id: 1,name:"netflix"},{id: 2,name:"hulu"},{id: 3,name:"amazon"},
-  {id: 4,name:"hbo"},{id: 5,name:"disney"},{id: 6,name:"showtime"},
-  {id: 7,name:"starz"},{id: 8,name:"cinimax"},{id: 9,name:"dc"},
-  {id: 10,name:"apple"},{id: 11,name:"epix"},{id: 12,name:"cbs"},
-  {id: 13,name:"tbs"},{id: 14,name:"tnt"},{id: 15,name:"shudder"},
-  {id: 16,name:"amc"},{id: 17,name:"fx"},{id: 18,name:"syfy"},{id: 19,name:"ifc"}
+  {id: 4,name:"hbo"},{id: 5,name:"disney"},{id: 6,name:"apple"},
+  {id: 7,name:"showtime"},{id: 8,name:"starz"},{id: 9,name:"cinimax"},
+  {id: 10,name:"dc"},{id: 11,name:"epix"},{id: 12,name:"cbs"},
+  {id: 13,name:"shudder"},{id: 14,name:"amc"}
   ]
 
 function HomePage(props) {  
@@ -24,6 +23,17 @@ function HomePage(props) {
     history.push("/streams");
   }
 
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      adapter.createUser(user.email, user.name).then(res => {
+        user.id = res.id;
+        getUserStreams(user.id);
+        props.userID(user.id);
+        history.push('/profile');
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
 
   if (loading) {
     return <div className = "home">Loading...</div>;
@@ -46,25 +56,21 @@ function HomePage(props) {
               movie catalogs, or you can click the streams button to view all available platforms. 
               <br/><br/>Select a movie and you can get the trailer, ratings, and more! 
             </p>
-            <button onClick={() => loginWithRedirect({})}>Log in</button>
-            <button onClick={handleClick}>Streams</button>
+            <div className="home-buttons">
+              <button className="btn btn-primary" onClick={() => loginWithRedirect({})}>Log in</button>
+              <button className="btn btn-secondary" onClick={handleClick}>Streams</button>
+            </div>
           </div>
           
         )}    
       </div>
       <div>
          {isAuthenticated && (
-            adapter.createUser(user.email,user.name).then(res=> {
-              user.id = res.id
-              getUserStreams(user.id)
-              props.userID(user.id)
-            }),            
             <div className="greeting">
               <h2> Hi {user.name} </h2>
               <h4> Please wait to be redirected </h4>
-            </div>,
-            history.push('/profile')
-        )}     
+            </div>
+        )}
       </div>
     </div>
     );
@@ -79,7 +85,7 @@ function HomePage(props) {
 
   const adapter = {
     createUser: (email,username) => {
-      return fetch(`https://cors-anywhere-dd.herokuapp.com/https://river-api.herokuapp.com/users`, {
+      return fetch(`http://localhost:3001/users`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({email, username})
@@ -88,7 +94,7 @@ function HomePage(props) {
     },
 
     createUserStream: (user_id,stream_id) => {
-      return fetch(`https://cors-anywhere-dd.herokuapp.com/https://river-api.herokuapp.com/users/${user_id}/user_streams`, {
+      return fetch(`http://localhost:3001/users/${user_id}/user_streams`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({user_id, stream_id})

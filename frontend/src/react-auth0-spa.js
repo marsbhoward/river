@@ -19,25 +19,34 @@ export const Auth0Provider = ({
 
   useEffect(() => {
     const initAuth0 = async () => {
-      const auth0FromHook = await createAuth0Client(initOptions);
-      setAuth0(auth0FromHook);
+      try {
+        const auth0FromHook = await createAuth0Client(initOptions);
+        setAuth0(auth0FromHook);
 
-      if (window.location.search.includes("code=") &&
-          window.location.search.includes("state=")) {
-        const { appState } = await auth0FromHook.handleRedirectCallback();
-        onRedirectCallback(appState);
+        if (window.location.search.includes("code=") &&
+            window.location.search.includes("state=")) {
+          const { appState } = await auth0FromHook.handleRedirectCallback();
+          onRedirectCallback(appState);
+        }
+
+        const isAuthenticated = await auth0FromHook.isAuthenticated();
+
+        setIsAuthenticated(isAuthenticated);
+
+        if (isAuthenticated) {
+          const user = await auth0FromHook.getUser();
+          setUser(user);
+        }
+      } catch (error) {
+        console.error("Auth0 initialization failed:", error);
+        // Silent re-auth failed (stale session, blocked 3rd-party cookies, etc).
+        // Clear the flag so the next load skips the silent-auth attempt instead
+        // of repeating the same failure.
+        document.cookie = "auth0.is.authenticated=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        setIsAuthenticated(false);
+      } finally {
+        setLoading(false);
       }
-
-      const isAuthenticated = await auth0FromHook.isAuthenticated();
-
-      setIsAuthenticated(isAuthenticated);
-
-      if (isAuthenticated) {
-        const user = await auth0FromHook.getUser();
-        setUser(user);
-      }
-
-      setLoading(false);
     };
     initAuth0();
     // eslint-disable-next-line
@@ -74,11 +83,13 @@ export const Auth0Provider = ({
         popupOpen,
         loginWithPopup,
         handleRedirectCallback,
-        getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
-        loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
-        getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
-        getTokenWithPopup: (...p) => auth0Client.getTokenWithPopup(...p),
-        logout: (...p) => auth0Client.logout(...p)
+        getIdTokenClaims: (...p) => auth0Client && auth0Client.getIdTokenClaims(...p),
+        loginWithRedirect: (...p) => auth0Client
+          ? auth0Client.loginWithRedirect(...p)
+          : console.error("loginWithRedirect called before Auth0 client finished initializing"),
+        getTokenSilently: (...p) => auth0Client && auth0Client.getTokenSilently(...p),
+        getTokenWithPopup: (...p) => auth0Client && auth0Client.getTokenWithPopup(...p),
+        logout: (...p) => auth0Client && auth0Client.logout(...p)
       }}
     >
       {children}
