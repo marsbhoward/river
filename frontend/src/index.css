@@ -161,20 +161,24 @@ code {
   display: grid;
   margin-top: 45px;
   margin-left: 5%;
-  
+
   top: 0;
   bottom: 0;
-  margin-bottom: 10%;
   width: 100%;
-  
+
   grid-template-columns: 30% 30% 30%;
-   
+
   justify-content: center;
   align-items: center;
 }
 
-.done-button{
-  margin-bottom: 10%;
+.streams-list-title {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-family: 'Didact Gothic', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  color: #111;
 }
 
 .movie-list {
@@ -335,6 +339,40 @@ code {
   border-color: #fe2d56;
   color: #fe2d56;
   transform: translateY(-2px);
+}
+
+/* Same shape as .btn-secondary but for light backgrounds (e.g. .profile) */
+.btn-outline-dark {
+  color: #111;
+  background: transparent;
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+.btn-outline-dark:hover {
+  border-color: #fe2d56;
+  color: #fe2d56;
+  transform: translateY(-2px);
+}
+
+.scroll-to-top-button {
+  display: block;
+  margin: 30px auto 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #fe2d56;
+  color: white;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(254, 45, 86, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.scroll-to-top-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(254, 45, 86, 0.5);
 }
 
 /***************** footer buttons *****************/

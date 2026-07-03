@@ -116,37 +116,32 @@ class ProfilePage extends Component {
     }
   }
 
+  scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.body.scrollTo({ top: 0, behavior: 'smooth' });
+    document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   render() {
     const { loading, user } = this.context;
-    //const { isAuthenticated, loginWithRedirect} = this.context;
-    
+
     if (loading || !user) {
       return <div>Loading...</div>;
     }
 
-    if (this.state.streamEdit === true){
-      return ( 
-        <div className= "profile">
-          <img src={user.picture} alt="Profile" />
-          <h2>Hi, {user.name}</h2>
-          <p>email: {user.email}</p>
-          <button onClick={this.handleClick}>Edit Streams</button>
-          {this.handleLoading(this.props.userId)}
-          <button className="done-button" onClick={this.handleDone}>Done</button>
-        </div>             
-      );
-    }
-    else{
-      return ( 
-        <div className= "profile">
-          <img src={user.picture} alt="Profile" />
-          <h2>Hi, {user.name}</h2>
-          <p>email: {user.email}</p>
-          <button onClick={this.handleClick}>Edit Streams</button>
-          {this.handleLoading(this.props.userId)}
-        </div>             
-      );
-    }
+    return (
+      <div className= "profile">
+        <img src={user.picture} alt="Profile" />
+        <h2>Hi, {user.name}</h2>
+        <p>email: {user.email}</p>
+        {this.state.streamEdit
+          ? <button className="btn btn-primary" onClick={this.handleDone}>Done</button>
+          : <button className="btn btn-outline-dark" onClick={this.handleClick}>Edit Streams</button>
+        }
+        {this.handleLoading(this.props.userId)}
+        <button className="scroll-to-top-button" onClick={this.scrollToTop} aria-label="Return to top">&#8593;</button>
+      </div>
+    );
   }
 }
 
