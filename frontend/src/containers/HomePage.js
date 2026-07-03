@@ -37,27 +37,30 @@ function HomePage(props) {
 
   return (
     <div className="hero">
-      {!isAuthenticated && (
-        <div className="hero-content">
-          <h1>Find Your Streams</h1>
-          <p>
-            River is the pathway to all of your streaming platforms.
-            Create an account and you will be able to browse your selected providers'
-            movie catalogs, or you can click the streams button to view all available platforms.
-            <br/><br/>Select a movie and you can get the trailer, ratings, and more!
-          </p>
-          <div className="home-buttons">
-            <button className="btn btn-primary" onClick={() => loginWithPopup({})}>Log in</button>
-            <button className="btn btn-secondary" onClick={handleClick}>Streams</button>
+      <div className="hero-image"></div>
+      <div className="hero-panel">
+        {!isAuthenticated && (
+          <div className="hero-content">
+            <h1>Find Your Streams</h1>
+            <p>
+              River is the pathway to all of your streaming platforms.
+              Create an account and you will be able to browse your selected providers'
+              movie catalogs, or you can click the streams button to view all available platforms.
+              <br/><br/>Select a movie and you can get the trailer, ratings, and more!
+            </p>
+            <div className="home-buttons">
+              <button className="btn btn-primary" onClick={() => loginWithPopup({})}>Log in</button>
+              <button className="btn btn-secondary" onClick={handleClick}>Streams</button>
+            </div>
           </div>
-        </div>
-      )}
-      {isAuthenticated && (
-        <div className="hero-greeting">
-          <h2>Hi {user.name}</h2>
-          <h4>Please wait to be redirected</h4>
-        </div>
-      )}
+        )}
+        {isAuthenticated && (
+          <div className="hero-greeting">
+            <h2>Hi {user.name}</h2>
+            <h4>Please wait to be redirected</h4>
+          </div>
+        )}
+      </div>
     </div>
   );
   }
