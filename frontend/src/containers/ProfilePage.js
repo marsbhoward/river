@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchUserStreams } from '../actions/userStreamActions'
 import Profile from '../components/Profile';
 import { Auth0Context } from "../react-auth0-spa";
+import { API_URL } from '../apiConfig';
 
 
 let selectList = []
@@ -98,7 +99,7 @@ class ProfilePage extends Component {
 
   const adapter = {
     editStream: (id,selected,user_id,stream_id) => {
-      return fetch(`http://localhost:3001/users/${user_id}/user_streams/${id}`, {
+      return fetch(`${API_URL}/users/${user_id}/user_streams/${id}`, {
         method: 'PATCH',
         body: JSON.stringify({id,selected,user_id,stream_id}),
         headers: { "Content-Type": "application/json" },

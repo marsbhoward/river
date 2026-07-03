@@ -1,4 +1,6 @@
-const userStreamsAPI = 'http://localhost:3001/users/'
+import { API_URL } from '../apiConfig'
+
+const userStreamsAPI = `${API_URL}/users/`
 
 export const fetchUserStreams = (userID) => {
 	const streamURL = `${userStreamsAPI}${userID}/user_streams`

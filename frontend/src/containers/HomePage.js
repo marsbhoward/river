@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAuth0 } from "../react-auth0-spa";
 import { useHistory } from "react-router-dom";
+import { API_URL } from '../apiConfig';
 
   const streamsList = [
   {id: 1,name:"netflix"},{id: 2,name:"hulu"},{id: 3,name:"amazon"},
@@ -25,6 +26,9 @@ function HomePage(props) {
         return getUserStreams(user.id);
       }).then(() => {
         props.userID(user.id);
+        history.push('/streams');
+      }).catch(error => {
+        console.error('Login setup failed:', error);
         history.push('/streams');
       });
     }
@@ -73,7 +77,7 @@ function HomePage(props) {
 
   const adapter = {
     createUser: (email,username) => {
-      return fetch(`http://localhost:3001/users`, {
+      return fetch(`${API_URL}/users`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({email, username})
@@ -82,7 +86,7 @@ function HomePage(props) {
     },
 
     createUserStream: (user_id,stream_id) => {
-      return fetch(`http://localhost:3001/users/${user_id}/user_streams`, {
+      return fetch(`${API_URL}/users/${user_id}/user_streams`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({user_id, stream_id})
