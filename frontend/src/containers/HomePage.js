@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
   ]
 
 function HomePage(props) {  
-  const { isAuthenticated, loginWithRedirect} = useAuth0();
+  const { isAuthenticated, loginWithPopup} = useAuth0();
   const { loading, user } = useAuth0();
   const history = useHistory();
 
@@ -57,7 +57,7 @@ function HomePage(props) {
               <br/><br/>Select a movie and you can get the trailer, ratings, and more! 
             </p>
             <div className="home-buttons">
-              <button className="btn btn-primary" onClick={() => loginWithRedirect({})}>Log in</button>
+              <button className="btn btn-primary" onClick={() => loginWithPopup({})}>Log in</button>
               <button className="btn btn-secondary" onClick={handleClick}>Streams</button>
             </div>
           </div>

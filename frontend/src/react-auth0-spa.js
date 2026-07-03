@@ -53,17 +53,22 @@ export const Auth0Provider = ({
   }, []);
 
   const loginWithPopup = async (params = {}) => {
+    if (!auth0Client) {
+      console.error("loginWithPopup called before Auth0 client finished initializing");
+      return;
+    }
+
     setPopupOpen(true);
     try {
       await auth0Client.loginWithPopup(params);
+      const user = await auth0Client.getUser();
+      setUser(user);
+      setIsAuthenticated(true);
     } catch (error) {
       console.error(error);
     } finally {
       setPopupOpen(false);
     }
-    const user = await auth0Client.getUser();
-    setUser(user);
-    setIsAuthenticated(true);
   };
 
   const handleRedirectCallback = async () => {
