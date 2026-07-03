@@ -17,7 +17,6 @@
 #
 
 default: &default
-  host: localhost
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -25,6 +24,7 @@ default: &default
 
 development:
   <<: *default
+  host: localhost
   database: river-api
 
 
@@ -33,10 +33,11 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  host: localhost
   database: river-api_test
 
+# Heroku Postgres sets DATABASE_URL automatically - using it directly here
+# avoids conflicting with any hardcoded host/database/username/password keys.
 production:
   <<: *default
-  database: river-api_production
-  username: river-api
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
